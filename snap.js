@@ -17,16 +17,34 @@ var seniorOrDisabledMessage = document.getElementById("seniorOrDisabledMessage")
 var resourceLimitMessage = document.getElementById("resourceLimitMessage"); 
 var resourceEligibilityMessage_disqualifyingResources = document.getElementById("resourceEligibilityMessage_disqualifyingResources"); 
 
+//set all input defalut values to smallest acceptable input 
+var inputElements = document.getElementsByTagName("input"); 
+for(var i=0; i<inputElements.length; i++){
+    inputElements[i].checked = "checked"; 
+    inputElements[i].defaultValue = 0; 
+}
+
+//If user changes an input value, populate client Object with new input value
+var userResponse = document.getElementsByClassName("userResponse"); 
+for(var i=0; i<userResponse.length; i++){
+    userResponse[i].addEventListener("change", genClientPropertyValue)
+}
+function genClientPropertyValue(){
+    client.senior = parseInt(document.querySelector('input[name="senior"]:checked').value);
+    client.disabled = parseInt(document.querySelector('input[name="disabled"]:checked').value);
+    client.resources = parseInt(document.querySelector('input[name="resourcesAmount"]:checked').value);
+    client.householdSize = parseInt(document.getElementById("householdSize").value);
+    client.earnedIncome = parseInt(document.getElementById("earnedIncome").value);
+    client.benefitIncome = parseInt(document.getElementById("benefitIncome").value);
+    client.grossIncome = client.earnedIncome + client.benefitIncome;
+    console.log(client); 
+};
+
 document.getElementById("resourcesButton").addEventListener("click", function() { 
-    resourceValueGenerate(); 
     resourceEligibilityCheck();
     resourceEligibilityDisplayMessage();
 });
-function resourceValueGenerate(){
-    client.senior = parseInt(document.querySelector('input[name="senior"]:checked').value);
-    client.disabled = parseInt(document.querySelector('input[name="disabled"]:checked').value);
-    client.resources = parseInt(document.querySelector('input[name="resourcesAmount"]:checked').value); 
-}
+
 //Refactor, look at Jonathan's code as shared in Slack channel message 
 function resourceEligibilityCheck(){
     if(client.resources == 3251){
@@ -99,13 +117,6 @@ var maximumMonthlyAllotmentArray = [0,
                          maximumMonthlyAllotment.Eight,
                         ];
 
-//For all questions that ask for a dollar amount, set default value to $0
-var questionWithIntegerAnswer = document.getElementsByClassName("questionWithIntegerAnswer"); 
-for(i=0; i<questionWithIntegerAnswer.length; i++){
-    questionWithIntegerAnswer[i].defaultValue= 0; 
-}
-
-
 var grossIncomeEligibilityMessage = document.getElementById("grossIncomeEligibilityMessage");
 var grossIncomeEligibilityEval = document.getElementById("grossIncomeEligibilityEval");
 var householdNumberMessage = document.getElementById("householdNumberMessage"); 
@@ -113,17 +124,10 @@ var grossIncomeLimitMessage = document.getElementById("grossIncomeLimitMessage")
 var grossIncome = document.getElementById("grossIncome"); 
 
 document.getElementById("grossIncomeButton").addEventListener("click", function() { 
-    grossIncomeValueGenerate(); 
     grossIncomeEligibilityCheck();
     grossIncomeEligibilityDisplayMessage();
 });
 
-function grossIncomeValueGenerate(){
-    client.householdSize = parseInt(document.getElementById("householdSize").value);
-    client.earnedIncome = parseInt(document.getElementById("earnedIncome").value);
-    client.benefitIncome = parseInt(document.getElementById("benefitIncome").value);
-    client.grossIncome = client.earnedIncome + client.benefitIncome;
-} 
 function grossIncomeEligibilityCheck(){ 
     grossIncomeLimitValue = Math.ceil(povertyLevelArray[client.householdSize]*1.3);
     if (client.grossIncome <= grossIncomeLimitValue){
@@ -150,7 +154,6 @@ var netIncome = document.getElementById("netIncome");
 var deductionFamilySizeArray = [0, 157, 157, 157, 168, 197, 226];
 
 document.getElementById("netIncomeButton").addEventListener("click",function() { 
-    grossIncomeValueGenerate(); //Generate client Object values for gross income since net income references those values 
     netIncomeDeductionSumGenerate();
     shelterDeductionSumGenerate(); 
     shelterDeductionLimitGenerate(); 
