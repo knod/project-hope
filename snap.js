@@ -10,66 +10,33 @@ var client = {
     resources: 0,
 }; 
 
-                                /*RESOURCE ELIGIBILITY*/
+/* vars and HTML IDs*/
+
+/*Resources*/
 var resourceEligibilityMessage = document.getElementById("resourceEligibilityMessage");
 var resourceEligibilityEval = document.getElementById("resourceEligibilityEval");
 var seniorOrDisabledMessage = document.getElementById("seniorOrDisabledMessage"); 
 var resourceLimitMessage = document.getElementById("resourceLimitMessage"); 
 var resourceEligibilityMessage_disqualifyingResources = document.getElementById("resourceEligibilityMessage_disqualifyingResources"); 
+/*Gross Income*/
+var grossIncomeEligibilityMessage = document.getElementById("grossIncomeEligibilityMessage");
+var grossIncomeEligibilityEval = document.getElementById("grossIncomeEligibilityEval");
+var householdNumberMessage = document.getElementById("householdNumberMessage"); 
+var grossIncomeLimitMessage = document.getElementById("grossIncomeLimitMessage");  
+var grossIncome = document.getElementById("grossIncome"); 
+/*NET INCOME ELIGIBILITY*/ 
+var netIncomeEligibilityMessage = document.getElementById("netIncomeEligibilityMessage");
+var netIncomeEligibilityEval = document.getElementById("netIncomeEligibilityEval");
+var netIncomeHouseholdNumberMessage = document.getElementById("netIncomeHouseholdNumberMessage");
+var netIncomeLimitMessage = document.getElementById("netIncomeLimitMessage");
+var netIncome = document.getElementById("netIncome");
+var deductionFamilySizeArray = [0, 157, 157, 157, 168, 197, 226];
 
-//set all input defalut values to smallest acceptable input 
-var inputElements = document.getElementsByTagName("input"); 
-for(var i=0; i<inputElements.length; i++){
-    inputElements[i].checked = "checked"; 
-    inputElements[i].defaultValue = 0; 
+var inputTypeNumber = document.querySelectorAll('input[type=number]'); 
+for(var i=0; i<inputTypeNumber.length; i++){
+    inputTypeNumber[i]. defaultValue = 0; 
+    
 }
-
-//If user changes an input value, populate client Object with new input value
-var userResponse = document.getElementsByClassName("userResponse"); 
-for(var i=0; i<userResponse.length; i++){
-    userResponse[i].addEventListener("change", genClientPropertyValue)
-}
-function genClientPropertyValue(){
-    client.senior = parseInt(document.querySelector('input[name="senior"]:checked').value);
-    client.disabled = parseInt(document.querySelector('input[name="disabled"]:checked').value);
-    client.resources = parseInt(document.querySelector('input[name="resourcesAmount"]:checked').value);
-    client.householdSize = parseInt(document.getElementById("householdSize").value);
-    client.earnedIncome = parseInt(document.getElementById("earnedIncome").value);
-    client.benefitIncome = parseInt(document.getElementById("benefitIncome").value);
-    client.grossIncome = client.earnedIncome + client.benefitIncome;
-    console.log(client); 
-};
-
-document.getElementById("resourcesButton").addEventListener("click", function() { 
-    resourceEligibilityCheck();
-    resourceEligibilityDisplayMessage();
-});
-
-//Refactor, look at Jonathan's code as shared in Slack channel message 
-function resourceEligibilityCheck(){
-    if(client.resources == 3251){
-        resourceEligible = false;
-    } else if (client.resources == 3250 && client.senior == 1 || client.disabled == 1){  
-        resourceEligible = true; 
-    } else if (client.resources == 2250){
-        resourceEligible = true; 
-    } else {
-        resourceEligible = false; 
-    }
-}
-function resourceEligibilityDisplayMessage(){
-    if(client.resources == 3251){
-        resourceEligibilityMessage_disqualifyingResources.style.display = "initial";
-        resourceEligibilityMessage.style.display = "none";
-    } else { 
-        resourceEligibilityMessage_disqualifyingResources.style.display = "none";
-        resourceEligibilityMessage.style.display = "initial"; 
-        resourceEligibilityEval.innerHTML = (resourceEligible == true) ? "":" not";
-        seniorOrDisabledMessage.innerHTML = (client.senior==1 || client.disabled==1) ? "":" do not";
-        resourceLimitMessage.innerHTML =  (client.senior || client.disabled) ? "3,250":"2,250";
-    }
-}
-
                                 /*GROSS INCOME ELIGIBILITY*/
 //Note: Household Poverty Levels may change over time, so one can modify the Object, while leaving the array and rest of code as is. 
 //Object, values reflect 100% of federal poverty level relative to household size. 
@@ -117,17 +84,47 @@ var maximumMonthlyAllotmentArray = [0,
                          maximumMonthlyAllotment.Eight,
                         ];
 
-var grossIncomeEligibilityMessage = document.getElementById("grossIncomeEligibilityMessage");
-var grossIncomeEligibilityEval = document.getElementById("grossIncomeEligibilityEval");
-var householdNumberMessage = document.getElementById("householdNumberMessage"); 
-var grossIncomeLimitMessage = document.getElementById("grossIncomeLimitMessage");  
-var grossIncome = document.getElementById("grossIncome"); 
-
-document.getElementById("grossIncomeButton").addEventListener("click", function() { 
+document.getElementById("netIncomeButton").addEventListener("click",function() { 
+    genClientPropertyValue();
+    resourceEligibilityCheck();
+    resourceEligibilityDisplayMessage();
     grossIncomeEligibilityCheck();
     grossIncomeEligibilityDisplayMessage();
+    netIncomeDeductionSumGenerate();
+    shelterDeductionSumGenerate(); 
+    shelterDeductionLimitGenerate(); 
+    netIncomeValueGenerate(); //Calculate the sum of deductions that can be applied to net income
+    netIncomeEligibilityCheck();
+    allotmentValueGenerate(); 
+    netIncomeEligibilityDisplayMessage();
 });
 
+function genClientPropertyValue(){
+    client.senior = parseInt(document.querySelector('input[name="senior"]:checked').value);
+    client.disabled = parseInt(document.querySelector('input[name="disabled"]:checked').value);
+    client.resources = parseInt(document.querySelector('input[name="resourcesAmount"]:checked').value);
+    client.householdSize = parseInt(document.getElementById("householdSize").value);
+    client.earnedIncome = parseInt(document.getElementById("earnedIncome").value);
+    client.benefitIncome = parseInt(document.getElementById("benefitIncome").value);
+    client.grossIncome = client.earnedIncome + client.benefitIncome;
+    console.log(client); 
+};
+
+/*Resource Eligibility*/
+function resourceEligibilityCheck(){
+    if(client.resources == 3251){
+        resourceEligible = false;
+    } else if (client.resources == 3250 && client.senior == 1 || client.disabled == 1){  
+        resourceEligible = true; 
+    } else if (client.resources == 2250){
+        resourceEligible = true; 
+    } else {
+        resourceEligible = false; 
+    }
+}
+
+
+/*Gross Income Eligibility*/
 function grossIncomeEligibilityCheck(){ 
     grossIncomeLimitValue = Math.ceil(povertyLevelArray[client.householdSize]*1.3);
     if (client.grossIncome <= grossIncomeLimitValue){
@@ -137,31 +134,7 @@ function grossIncomeEligibilityCheck(){
         grossIncomeEligible = false;
     }
 }
-function grossIncomeEligibilityDisplayMessage(){
-    grossIncomeEligibilityMessage.style.display = "initial"; 
-    grossIncomeEligibilityEval.innerHTML = (grossIncomeEligible == true) ? "":" not";
-    grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 
-    householdNumberMessage.innerHTML = client.householdSize;
-    grossIncome.innerHTML = client.grossIncome;
-}
 
-                                /*NET INCOME ELIGIBILITY*/ 
-var netIncomeEligibilityMessage = document.getElementById("netIncomeEligibilityMessage");
-var netIncomeEligibilityEval = document.getElementById("netIncomeEligibilityEval");
-var netIncomeHouseholdNumberMessage = document.getElementById("netIncomeHouseholdNumberMessage");
-var netIncomeLimitMessage = document.getElementById("netIncomeLimitMessage");
-var netIncome = document.getElementById("netIncome");
-var deductionFamilySizeArray = [0, 157, 157, 157, 168, 197, 226];
-
-document.getElementById("netIncomeButton").addEventListener("click",function() { 
-    netIncomeDeductionSumGenerate();
-    shelterDeductionSumGenerate(); 
-    shelterDeductionLimitGenerate(); 
-    netIncomeValueGenerate(); //Calculate the sum of deductions that can be applied to net income
-    netIncomeEligibilityCheck();
-    allotmentValueGenerate(); 
-    netIncomeEligibilityDisplayMessage();
-});
 function netIncomeDeductionSumGenerate(){
     var deductionTwentyPercent = parseInt(document.getElementById("earnedIncome").value*0.2); 
     var deductionFamilySize = parseInt(deductionFamilySizeArray[client.householdSize]); 
@@ -175,7 +148,9 @@ function netIncomeDeductionSumGenerate(){
     }
     netIncomeDeductionSum = deductionTwentyPercent + deductionFamilySize + deductionDependentCare + deductionMedExpense + deductionChildSupport; 
 }
-                    /*Shelter Deduction*/
+
+
+/*Shelter Deduction*/
 function shelterDeductionSumGenerate(){
     client.netIncome = client.grossIncome - netIncomeDeductionSum;
     shelterCostDeductionSum = 0; //global variable used in netIncomeValueGenerate() function 
@@ -215,75 +190,5 @@ function allotmentValueGenerate(){
     document.getElementById("allotmentValueMessage").innerHTML = allotmentValue;
 }
 
-function netIncomeEligibilityDisplayMessage(){
-    netIncomeEligibilityMessage.style.display = "initial"; 
-    netIncomeEligibilityEval.innerHTML = (netIncomeEligible == true) ? "":" not";
-    netIncomeLimitMessage.innerHTML = netIncomeLimitValue; 
-    netIncomeHouseholdNumberMessage.innerHTML = client.householdSize;
-    netIncome.innerHTML = client.netIncome;
-}
 
-                                /*Display Functions for Net Income Deduction Questions*/
-//Dependent Care Deduction Display
-document.getElementById("deductionDependentCareQuestion").addEventListener("click", displayDependentCareFollowUp);
-function displayDependentCareFollowUp(){
-    var deductionDependentCareFollowUp = document.getElementById("deductionDependentCareFollowUp");
-    if(document.getElementById("workTrainingClassesYes").checked){
-        deductionDependentCareFollowUp.style.display = "initial";
-    } else {
-        deductionDependentCareFollowUp.style.display = "none"
-    }
-}
-//Child Support Deduction Display  
-document.getElementById("deductionChildSupportQuestion").addEventListener("click", displayChildSupportFollowUp);
-function displayChildSupportFollowUp(){
-    var deductionChildSupportFollowUp = document.getElementById("deductionChildSupportFollowUp");
-    if(document.getElementById("childSupportYes").checked){
-        deductionChildSupportFollowUp.style.display = "initial";
-    } else {
-        deductionChildSupportFollowUp.style.display = "none";
-    }
-}
-//Medical Expense Deduction Display   
-document.getElementById("questionDisabledStatus").addEventListener("click", displayMedExpenseFollowUp);
-document.getElementById("questionSeniorStatus").addEventListener("click", displayMedExpenseFollowUp);
-function displayMedExpenseFollowUp(){
-    var deductionMedExpenseFollowUp = document.getElementById("deductionMedExpenseFollowUp");
-    if (document.getElementById("seniorTrue").checked == true || document.getElementById("disabledTrue").checked == true){   
-        deductionMedExpenseFollowUp.style.display = "initial"; 
-    } else {
-        deductionMedExpenseFollowUp.style.display = "none"
-    }
-};
-//Shelter Cost Deduction Display   
-document.getElementById("shelterRentOrOwnQuestion").addEventListener("click", rentOrOwnDisplayFollowUp )
-function rentOrOwnDisplayFollowUp(){
-    if(document.getElementById("rentResponse").checked){
-        document.getElementById("rentFollowUp").style.display = "initial";
-        document.getElementById("ownFollowUp").style.display = "none";
-        document.getElementById("shelterMortgageCost").value = 0; 
-        document.getElementById("shelterHomeTaxesCost").value = 0; 
-    } else if (document.getElementById("ownResponse").checked){
-        document.getElementById("ownFollowUp").style.display = "initial";
-        document.getElementById("rentFollowUp").style.display = "none";
-        document.getElementById("shelterRentCost").value = 0;       
-    } else {
-        document.getElementById("rentFollowUp").style.display = "none";
-        document.getElementById("ownFollowUp").style.display = "none";
-        document.getElementById("shelterRentCost").value = 0;
-        document.getElementById("shelterMortgageCost").value = 0; 
-        document.getElementById("shelterHomeTaxesCost").value = 0;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
+                                

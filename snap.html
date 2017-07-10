@@ -22,18 +22,18 @@
         <br><br>
         <!--Question: Senior in household?-->
             <div class="question userResponse" id="questionSeniorStatus">1. Is anyone in your household 60 years of age or older?<br>
-            <input type="radio" name="senior" id="seniorTrue" value=1>Yes<br>
-            <input type="radio" name="senior" id="seniorFalse" value=0> No
+            <input type="radio" name="senior" id="seniorTrue" value="1">Yes<br>
+            <input type="radio" name="senior" id="seniorFalse" value="0"> No
             <br><br>
         </div>
         <!--Question: Disabled person in household?-->
             <div class="question userResponse" id="questionDisabledStatus">2. Is anyone in your household disabled?<br>
-            <input type="radio" name="disabled" id="disabledTrue" value=1>Yes<br>
-            <input type="radio" name="disabled" id="disabledFalse" value=0> No
+            <input type="radio" name="disabled" id="disabledTrue" value="1">Yes<br>
+            <input type="radio" name="disabled" id="disabledFalse" value="0"> No
             <br><br>
         </div>
         <!--Question: Savings amount?-->
-        <div class="question">3. How much do you have in savings?</div><br>
+            <div class="question">3. How much do you have in savings?</div><br>
         <b>Note:</b> Do <em>not</em> include the savings of any people who receive Supplemental Security Income (SSI) or Temporary Assistance for Needy Families (TANF)
         <br><br>
         <div class = "userResponse" id= "questionResourcesAmount">
@@ -42,7 +42,6 @@
             <input type="radio" name="resourcesAmount" value=2250>$2,250 or less
         </div>
         <br><br>
-        <button id="resourcesButton">Resources Check</button>
         <hr> 
         </div>      
         <!--Eligibility Criteria: Gross Income-->
@@ -79,8 +78,6 @@
         <br>  
         <input type="number" class="userResponse" id="benefitIncome">
         <br><br>
-        <button id="grossIncomeButton">Gross Income Check</button>
-        <br><br>
         <em>Your gross income equals your monthly <b>earned</b> income plus your monthly <b>benefit</b> income.</em>
         <hr>
         <!--Eligibility Criteria: Net Income-->
@@ -90,8 +87,7 @@
             <br><br>
             Since you have <span id="netIncomeHouseholdNumberMessage"></span> member(s) in your household, your monthly net income must be $<span id="netIncomeLimitMessage"></span>, or less, in order to qualify for SNAP. 
             <br><br>
-            Your monthly net income is $<span id = netIncome></span>.
-            
+            Your monthly net income is $<span id = netIncome></span>.         
             You will receive a monthly allotment of $<span id="allotmentValueMessage"></span>
         </div>
         <br><br>
@@ -162,8 +158,9 @@
             <input type="number" class="shelterInput" id="shelterHomeTaxesCost">
             <br>
         </div>
-        <button id="netIncomeButton">Net Income Check</button>
+        <button id="netIncomeButton">Check My Eligibility</button>
         <hr>
         <script src="snap.js"></script>
+        <script src="text_display_controls.js"></script>
     </body>
 </html>
