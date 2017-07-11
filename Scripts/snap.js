@@ -140,7 +140,7 @@ function netIncomeDeductionSumGenerate(){
     var deductionFamilySize = parseInt(deductionFamilySizeArray[client.householdSize]); 
     var deductionDependentCare= parseInt(document.getElementById("deductionDependentCareValue").value);
     var deductionChildSupport = parseInt(document.getElementById("deductionChildSupportValue").value);
-    var deductionMedExpense = parseInt(document.getElementById("deductionMedExpenseValue").value);
+    var deductionMedExpense = parseInt(document.getElementById("deductionMedicalExpenseValue").value);
     if(deductionMedExpense > 35){
         deductionMedExpense -= 35;  
     } else {

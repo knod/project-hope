@@ -1,10 +1,10 @@
 function resourceEligibilityDisplayMessage(){
     if(client.resources == 3251){
-        resourceEligibilityMessage_disqualifyingResources.style.display = "initial";
         resourceEligibilityMessage.style.display = "none";
+        resourceEligibilityMessage_disqualifyingResources.style.display = "initial"; 
     } else { 
+        resourceEligibilityMessage.style.display = "initial";
         resourceEligibilityMessage_disqualifyingResources.style.display = "none";
-        resourceEligibilityMessage.style.display = "initial"; 
         resourceEligibilityEval.innerHTML = (resourceEligible == true) ? "":" not";
         seniorOrDisabledMessage.innerHTML = (client.senior==1 || client.disabled==1) ? "":" do not";
         resourceLimitMessage.innerHTML =  (client.senior || client.disabled) ? "3,250":"2,250";
@@ -48,17 +48,34 @@ function displayChildSupportFollowUp(){
         deductionChildSupportFollowUp.style.display = "none";
     }
 }
-//Medical Expense Deduction Display   
-document.getElementById("questionDisabledStatus").addEventListener("click", displayMedExpenseFollowUp);
-document.getElementById("questionSeniorStatus").addEventListener("click", displayMedExpenseFollowUp);
-function displayMedExpenseFollowUp(){
-    var deductionMedExpenseFollowUp = document.getElementById("deductionMedExpenseFollowUp");
+//Medical Expense Deduction Display, Question  
+document.getElementById("questionDisabledStatus").addEventListener("click", displayMedicalExpenseQuestion);
+document.getElementById("questionSeniorStatus").addEventListener("click", displayMedicalExpenseQuestion);
+function displayMedicalExpenseQuestion(){
+    var medicalExpenseQuestion = document.getElementById("medicalExpenseQuestion");
     if (document.getElementById("seniorTrue").checked == true || document.getElementById("disabledTrue").checked == true){   
-        deductionMedExpenseFollowUp.style.display = "initial"; 
+        medicalExpenseQuestion.style.display = "initial"; 
     } else {
-        deductionMedExpenseFollowUp.style.display = "none"
+        medicalExpenseQuestion.style.display = "none"
     }
 };
+
+//Medical Expense Deduction Display, Follow Up
+document.getElementById("medicalExpenseQuestion").addEventListener("click", displayMedicalExpenseFollowUp);
+function displayMedicalExpenseFollowUp(){
+    var deductionMedicalExpenseFollowUp = document.getElementById("deductionMedicalExpenseFollowUp");
+    if (document.getElementById("medicalExpenseYes").checked == true){   
+        deductionMedicalExpenseFollowUp.style.display = "initial"; 
+    } else {
+        deductionMedicalExpenseFollowUp.style.display = "none"
+    }
+};
+medicalExpenseYes
+
+var deductionMedExpenseFollowUp = deductionMedExpenseFollowUp
+
+
+
 //Shelter Cost Deduction Display   
 document.getElementById("shelterRentOrOwnQuestion").addEventListener("click", rentOrOwnDisplayFollowUp )
 function rentOrOwnDisplayFollowUp(){

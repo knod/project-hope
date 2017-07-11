@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>SNAP</title>
-        <link rel="stylesheet" type="text/css" href="snap.css">
+        <link rel="stylesheet" type="text/css" href="/Styles/snap.css">
     </head>
     <body>
         <div id="snapForm">
@@ -10,15 +10,15 @@
         <hr>
         <!--Eligibility Criteria: RESOURCES-->
         <div class="eligibilityHeading">Resources</div>
-        <br>
-        <div id = "resourceEligibilityMessage">
-            You are<span id="resourceEligibilityEval"></span> eligible for SNAP. 
-            <br><br>
-            You<span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household, which means you can have a maximum of $<span id ="resourceLimitMessage"></span> in savings and qualify for SNAP. 
-        </div>
-        <div id = "resourceEligibilityMessage_disqualifyingResources">
-            You are not eligible for SNAP. You cannot have more than $3,250 in savings and qualify for SNAP.
-        </div>
+            <div id = "resourceEligibilityMessage">
+                You are<span id="resourceEligibilityEval"></span> eligible for SNAP. 
+                <br><br>
+                You<span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household, which means you can have a maximum of $<span id ="resourceLimitMessage"></span> in savings and qualify for SNAP. 
+            </div>
+            <br>     
+            <div id = "resourceEligibilityMessage_disqualifyingResources">
+                You are not eligible for SNAP. You cannot have more than $3,250 in savings and qualify for SNAP.
+            </div>
         <br><br>
         <!--Question: Senior in household?-->
             <div class="question userResponse" id="questionSeniorStatus">1. Is anyone in your household 60 years of age or older?<br>
@@ -46,7 +46,7 @@
         </div>      
         <!--Eligibility Criteria: Gross Income-->
         <div class="eligibilityHeading">Gross Income</div>
-        <br>
+        <br>    
         <div id = "grossIncomeEligibilityMessage">
             You are <span id="grossIncomeEligibilityEval"></span> eligible for SNAP.
             <br><br>
@@ -54,7 +54,6 @@
             <br><br>
             Your monthly gross income is $<span id="grossIncome"></span>
         </div>
-        <br><br>
         <!--Question: How many people in household-->
         <div class="question">4. How many people are in your household?</div><br> 
         <select class = "userResponse" id = "householdSize" name="householdSize">
@@ -80,7 +79,7 @@
         <br><br>
         <em>Your gross income equals your monthly <b>earned</b> income plus your monthly <b>benefit</b> income.</em>
         <hr>
-        <!--Eligibility Criteria: Net Income-->
+        <!--Eligibility Criteria: Net Income-->    
         <div class="eligibilityHeading">Net Income</div>
         <div id = "netIncomeEligibilityMessage">
             You are <span id="netIncomeEligibilityEval"></span> eligible for SNAP.
@@ -114,18 +113,26 @@
             <input type="radio" name="childSupport" value="no" id="childSupportNo">No
         </div>
         <br><br>
-        <!--Follow Up IF YES, how much spent on legally required child support?-->
         <div class = "question" id="deductionChildSupportFollowUp">
+            <!--Follow Up IF YES, how much spent on legally required child support?-->
             How much do you spend on legally required child support per month?
             <br><br>
             <input id="deductionChildSupportValue" type="number">
             <br><br>
         </div>
-        <!--Follow Up: IF YES on senior or disabled, how much spent on med expenses?-->
-        <div class = "question" id="deductionMedExpenseFollowUp">This month, how much did you spend on out of pocket medical expenses for any disabled or elderly individuals in your household?
+        <br><br>
+        <div class = "question" id="medicalExpenseQuestion">
+            Did you pay any out of pocket medical expenses for a senior or disabled household member?
+            <br>
+            <input type="radio" name="medicalExpense" value="yes" id="medicalExpenseYes">Yes<br>
+            <input type="radio" name="medicalExpense" value="no" id="medicalExpenseNo">No
+        </div>
+        <br><br>
+
+        <!--Follow Up: IF YES on senior or disabled, AND IF YES on senior\disabled out of pocket medical expenses. How much spent on med expenses?-->
+        <div class = "question" id="deductionMedicalExpenseFollowUp">This month, how much did you spend on out of pocket medical expenses for any disabled or elderly individuals in your household?
             <br><br>
-            <input id="deductionMedExpenseValue" type="number">
-            <br><br>
+            <input id="deductionMedicalExpenseValue" type="number">
         </div>
         <!--Deduction: Shelter Costs-->
         <div class="eligibilityHeading">Housing</div>
@@ -159,8 +166,8 @@
             <br>
         </div>
         <button id="netIncomeButton">Check My Eligibility</button>
-        <hr>
-        <script src="snap.js"></script>
-        <script src="text_display_controls.js"></script>
+    <hr>
+        <script src="/Scripts/snap.js"></script>
+        <script src="/Scripts/text_display_controls.js"></script>
     </body>
 </html>
