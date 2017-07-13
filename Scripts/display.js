@@ -1,3 +1,31 @@
+//enter 0 as default value for all text input fields
+var inputTypeNumber = document.querySelectorAll('input[type=number]'); 
+for(var i=0; i<inputTypeNumber.length; i++){
+    inputTypeNumber[i]. defaultValue = 0; 
+}
+
+//HTML IDs AND THEIR VARIABLE NAMES: Resources
+var resourceEligibilityMessage = document.getElementById("resourceEligibilityMessage");
+var resourceEligibilityEval = document.getElementById("resourceEligibilityEval");
+var seniorOrDisabledMessage = document.getElementById("seniorOrDisabledMessage"); 
+var resourceLimitMessage = document.getElementById("resourceLimitMessage"); 
+var resourceEligibilityMessage_disqualifyingResources = document.getElementById("resourceEligibilityMessage_disqualifyingResources"); 
+
+//HTML IDs AND THEIR VARIABLE NAMES: Gross Income
+var grossIncomeEligibilityMessage = document.getElementById("grossIncomeEligibilityMessage");
+var grossIncomeEligibilityEval = document.getElementById("grossIncomeEligibilityEval");
+var householdNumberMessage = document.getElementById("householdNumberMessage"); 
+var grossIncomeLimitMessage = document.getElementById("grossIncomeLimitMessage");  
+var grossIncome = document.getElementById("grossIncome"); 
+
+//HTML IDs AND THEIR VARIABLE NAMES: Net Income 
+var netIncomeEligibilityMessage = document.getElementById("netIncomeEligibilityMessage");
+var netIncomeEligibilityEval = document.getElementById("netIncomeEligibilityEval");
+var netIncomeHouseholdNumberMessage = document.getElementById("netIncomeHouseholdNumberMessage");
+var netIncomeLimitMessage = document.getElementById("netIncomeLimitMessage");
+var netIncome = document.getElementById("netIncome");
+
+//FUNCTIONS THAT DISPLAY ELIGIBILITY STATUS TO THE USER: Resources
 function resourceEligibilityDisplayMessage(){
     if(client.resources == 3251){
         resourceEligibilityMessage.style.display = "none";
@@ -11,7 +39,9 @@ function resourceEligibilityDisplayMessage(){
     }
 }
 
+//FUNCTIONS THAT DISPLAY ELIGIBILITY STATUS TO THE USER:Gross Income
 function grossIncomeEligibilityDisplayMessage(){
+    console.log(client)
     grossIncomeEligibilityMessage.style.display = "initial"; 
     grossIncomeEligibilityEval.innerHTML = (grossIncomeEligible == true) ? "":" not";
     grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 
@@ -19,6 +49,7 @@ function grossIncomeEligibilityDisplayMessage(){
     grossIncome.innerHTML = client.grossIncome;
 }
 
+//FUNCTIONS THAT DISPLAY ELIGIBILITY STATUS TO THE USER:Net Income
 function netIncomeEligibilityDisplayMessage(){
     netIncomeEligibilityMessage.style.display = "initial"; 
     netIncomeEligibilityEval.innerHTML = (netIncomeEligible == true) ? "":" not";
@@ -27,8 +58,11 @@ function netIncomeEligibilityDisplayMessage(){
     netIncome.innerHTML = client.netIncome;
 }
 
-/*Display Functions for Net Income Deduction Questions*/
+//FUNCTIONS THAT DISPLAY NET INCOME DEDUCTION QUESTIONS 
+    //questions are dynamically hidden or displayed depending upon user input
+
 //Dependent Care Deduction Display
+    //Disaplyed if user says "yes" they are working, receiving job training, or taking classes
 document.getElementById("deductionDependentCareQuestion").addEventListener("click", displayDependentCareFollowUp);
 function displayDependentCareFollowUp(){
     var deductionDependentCareFollowUp = document.getElementById("deductionDependentCareFollowUp");
@@ -39,6 +73,7 @@ function displayDependentCareFollowUp(){
     }
 }
 //Child Support Deduction Display  
+    //Displayed if user says "yes" to being legally obligated to paying child support
 document.getElementById("deductionChildSupportQuestion").addEventListener("click", displayChildSupportFollowUp);
 function displayChildSupportFollowUp(){
     var deductionChildSupportFollowUp = document.getElementById("deductionChildSupportFollowUp");
@@ -49,6 +84,7 @@ function displayChildSupportFollowUp(){
     }
 }
 //Medical Expense Deduction Display, Question  
+    //Displayed if user has an elderly or disabled household member
 document.getElementById("questionDisabledStatus").addEventListener("click", displayMedicalExpenseQuestion);
 document.getElementById("questionSeniorStatus").addEventListener("click", displayMedicalExpenseQuestion);
 function displayMedicalExpenseQuestion(){
@@ -59,8 +95,8 @@ function displayMedicalExpenseQuestion(){
         medicalExpenseQuestion.style.display = "none"
     }
 };
-
 //Medical Expense Deduction Display, Follow Up
+    //Displayed if user has elderly OR senior household member AND says "yes" to spending out of pocket medical expenses for that member. 
 document.getElementById("medicalExpenseQuestion").addEventListener("click", displayMedicalExpenseFollowUp);
 function displayMedicalExpenseFollowUp(){
     var deductionMedicalExpenseFollowUp = document.getElementById("deductionMedicalExpenseFollowUp");
@@ -70,13 +106,9 @@ function displayMedicalExpenseFollowUp(){
         deductionMedicalExpenseFollowUp.style.display = "none"
     }
 };
-medicalExpenseYes
-
-var deductionMedExpenseFollowUp = deductionMedExpenseFollowUp
-
-
-
-//Shelter Cost Deduction Display   
+//Shelter Cost Deduction Display 
+    //Toggles between asking for monthly rent payment, or monthly mortgage. 
+    //Sets value of non-selected item 0. 
 document.getElementById("shelterRentOrOwnQuestion").addEventListener("click", rentOrOwnDisplayFollowUp )
 function rentOrOwnDisplayFollowUp(){
     if(document.getElementById("rentResponse").checked){
@@ -96,15 +128,3 @@ function rentOrOwnDisplayFollowUp(){
         document.getElementById("shelterHomeTaxesCost").value = 0;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

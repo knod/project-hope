@@ -5,7 +5,6 @@
         <link rel="stylesheet" type="text/css" href="/Styles/snap.css">
     </head>
     <body>
-        <div id="snapForm">
         <h2>SNAP Support</h2>
         <hr>
         <!--Eligibility Criteria: RESOURCES-->
@@ -22,10 +21,10 @@
         <br><br>
         <!--Question: Senior in household?-->
             <div class="question userResponse" id="questionSeniorStatus">1. Is anyone in your household 60 years of age or older?<br>
-            <input type="radio" name="senior" id="seniorTrue" value="1">Yes<br>
-            <input type="radio" name="senior" id="seniorFalse" value="0"> No
-            <br><br>
-        </div>
+                <input type="radio" name="senior" id="seniorTrue" value="1">Yes<br>
+                <input type="radio" name="senior" id="seniorFalse" value="0"> No
+                <br><br>
+            </div>
         <!--Question: Disabled person in household?-->
             <div class="question userResponse" id="questionDisabledStatus">2. Is anyone in your household disabled?<br>
             <input type="radio" name="disabled" id="disabledTrue" value="1">Yes<br>
@@ -40,10 +39,10 @@
             <input type="radio" name="resourcesAmount" value=3251>$3,251 or more<br>
             <input type="radio" name="resourcesAmount" value=3250>$2,251 to $3,250<br>
             <input type="radio" name="resourcesAmount" value=2250>$2,250 or less
-        </div>
+        </div> 
         <br><br>
-        <hr> 
-        </div>      
+            <button id="resourceButton">Resource Button</button>
+        <hr>      
         <!--Eligibility Criteria: Gross Income-->
         <div class="eligibilityHeading">Gross Income</div>
         <br>    
@@ -78,6 +77,7 @@
         <input type="number" class="userResponse" id="benefitIncome">
         <br><br>
         <em>Your gross income equals your monthly <b>earned</b> income plus your monthly <b>benefit</b> income.</em>
+        <button id="grossIncomeButton">Gross Income Button</button>
         <hr>
         <!--Eligibility Criteria: Net Income-->    
         <div class="eligibilityHeading">Net Income</div>
@@ -167,7 +167,8 @@
         </div>
         <button id="netIncomeButton">Check My Eligibility</button>
     <hr>
-        <script src="/Scripts/snap.js"></script>
-        <script src="/Scripts/text_display_controls.js"></script>
+        <script src="/Scripts/display.js"></script>
+        <script src="/Scripts/generate-values.js"></script>
+        <script src="/Scripts/get-eligibility.js"></script>
     </body>
 </html>
