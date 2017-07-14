@@ -41,7 +41,6 @@ function resourceEligibilityDisplayMessage(){
 
 //FUNCTIONS THAT DISPLAY ELIGIBILITY STATUS TO THE USER:Gross Income
 function grossIncomeEligibilityDisplayMessage(){
-    console.log(client)
     grossIncomeEligibilityMessage.style.display = "initial"; 
     grossIncomeEligibilityEval.innerHTML = (grossIncomeEligible == true) ? "":" not";
     grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 

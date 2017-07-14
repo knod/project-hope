@@ -20,7 +20,7 @@
 //                                                            
 //                                                            
 //                                                            
-//                                                            
+//                                                netIncomeLimitValue            
 //                                                            
 //function checkEligibility() {
 // client = genClientPropertyValue();
