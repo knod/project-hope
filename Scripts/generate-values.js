@@ -11,23 +11,31 @@ var client = {
     grossIncome: 0, 
 }; 
 
+var shelterCostDeductionSum = 0; 
+var netIncomeDeductionSum = 0; 
+
+var deduction = {
+    TwentyPercent: 0, 
+    FamilySize: 0, 
+    DependentCare: 0, 
+    ChildSupport: 0, 
+    MedExpense: 0,  
+}
+
 //Net Income Deduction, Family Size
     //Size of deduction depends upon number of people in user's household
 var deductionFamilySizeArray = [0, 157, 157, 157, 168, 197, 226];
 
 
 //TO DO: Rename function. See netIncomeDeductionValuesGenerate as template. 
-document.getElementById("resourceButton").addEventListener("click", genClientPropertyValueResources);
 function genClientPropertyValueResources(){        
     client.senior = parseInt(document.querySelector('input[name="senior"]:checked').value);
     client.disabled = parseInt(document.querySelector('input[name="disabled"]:checked').value);
     client.resources = parseInt(document.querySelector('input[name="resourcesAmount"]:checked').value);
-    console.log(client); 
     resourceEligibilityCheck(client); 
     resourceEligibilityDisplayMessage();
 };
 //TO DO: Rename function. See netIncomeDeductionValuesGenerate as template. 
-document.getElementById("grossIncomeButton").addEventListener("click", genClientPropertyValueGrossIncome);
 function genClientPropertyValueGrossIncome(){
     client.householdSize = parseInt(document.getElementById("householdSize").value);
     client.earnedIncome = parseInt(document.getElementById("earnedIncome").value);
@@ -38,66 +46,17 @@ function genClientPropertyValueGrossIncome(){
     grossIncomeEligibilityDisplayMessage(); 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var deduction = {
-    TwentyPercent: 0, 
-    FamilySize: 0, 
-    DependentCare: 0, 
-    ChildSupport: 0, 
-    MedExpense: 0,  
-}
-
-var shelterCostDeductionSum = 0; 
-var netIncomeDeductionSum = 0; 
-
-
-
-
-
 document.getElementById("netIncomeButton").addEventListener("click", genClientPropertyValueNetIncome);
 function genClientPropertyValueNetIncome(){
+    genClientPropertyValueResources(); 
     genClientPropertyValueGrossIncome(); 
     genDeductionPropertyValue();
     genNetIncomeDeductionSum();  
     genShelterDeductionSum();
     genShelterDeductionLimit();
     netIncomeValueGenerate(); 
-    netIncomeEligibilityCheck(); 
+    netIncomeEligibilityCheck();
+    allotmentValueGenerate();  
     netIncomeEligibilityDisplayMessage();    
 } 
 
@@ -158,38 +117,7 @@ function netIncomeValueGenerate(){
 }
 
 
-function allotmentValueGenerate(){
-    var allotmentValue = maximumMonthlyAllotmentArray[client.householdSize] - Math.ceil((client.netIncome * 0.3));
-    document.getElementById("allotmentValueMessage").innerHTML = allotmentValue;
-}
 
-
-            
-
-
-
-
-//var maximumMonthlyAllotment = {
-//    One: 194, 
-//    Two: 357, 
-//    Three: 511, 
-//    Four: 649, 
-//    Five: 771, 
-//    Six: 925,
-//    Seven: 1022, 
-//    Eight: 1169,  
-//}
-//
-//var maximumMonthlyAllotmentArray = [0, 
-//                         maximumMonthlyAllotment.One, 
-//                         maximumMonthlyAllotment.Two, 
-//                         maximumMonthlyAllotment.Three, 
-//                         maximumMonthlyAllotment.Four, 
-//                         maximumMonthlyAllotment.Five, 
-//                         maximumMonthlyAllotment.Six, 
-//                         maximumMonthlyAllotment.Seven, 
-//                         maximumMonthlyAllotment.Eight,
-//                        ];
 
 
 
