@@ -1,8 +1,9 @@
+//All values and logic referenced from: https://www.fns.usda.gov/snap/eligibility
+
 var resourceEligible = false; 
 var grossIncomeEligible = false; 
 var netIncomeEligible = false; 
 var netIncomeLimitValue = 0; 
-
 
 //Eligibility Check: Resources
 function resourceEligibilityCheck(client){
@@ -19,31 +20,23 @@ function resourceEligibilityCheck(client){
     return resourceEligible; 
 }
 
-//Eligibility Check: Gross Income 
-function grossIncomeEligibilityCheck(client){ 
-    if (client.grossIncome <= grossIncomeLimitValue){
-        grossIncomeEligible = true;
-    }
-    else {
-        grossIncomeEligible = false;
-    }
-    return grossIncomeEligible;  
-}
+//Eligibility Check: Gross Income and Net Income
+//Both gross income eligibility and net income eligibility are determined by comparing the user's net income and household size (ie, number of people in household) against the federal poverty level for families of the same household size.
+//Gross Income is compared to 130% of federal poverty level. 
+//Net Income is compared to 100% of federal poverty level 
+    //If the user has LESS THAN OR EQUAL to the limit, they are eligible
+    //If the user has MORE THAN the limit, they are ineligible
+//Limits are listed below
 
-//Eligibility Check: Net Income
-        //Net income eligibility is determined by comparing the user's net income and household size (ie, number of people in household) against 100% of the federal poverty level for families of the same household size.   
-        //If the user has LESS THAN OR EQUAL to the limit, they are eligible
-        //If the user has MORE THAN the limit, they are ineligible
-        //Limits are listed below
-var householdPovertyLevel = {
-    One: 990,           //net income limit for a household of one
-    Two: 1335,          //net income limit for a household of two
-    Three: 1680,        //net income limit for a household of three
-    Four: 2025,         //net income limit for a household of four
-    Five: 2370,         //net income limit for a household of five
-    Six: 2715,          //net income limit for a household of six
-    Seven: 3061,        //net income limit for a household of seven
-    Eight: 3408,        //net income limit for a household of eight
+var householdPovertyLevel = { //for Gross Income, multiply value by 1.3
+    One: 990,           //Example: net income limit of $990, ie 100% of federal poverty level, for a household size of one individual
+    Two: 1335,          
+    Three: 1680,        
+    Four: 2025,         
+    Five: 2370,         
+    Six: 2715,          
+    Seven: 3061,        
+    Eight: 3408,        
 }
 //Array of householdPovertyLevel object.  
 var povertyLevelArray = [0, 
@@ -57,6 +50,18 @@ var povertyLevelArray = [0,
                          householdPovertyLevel.Eight,
                         ];
 
+//Eligibility Check: Gross Income 
+function grossIncomeEligibilityCheck(client){ 
+    if (client.grossIncome <= grossIncomeLimitValue){ //grossIncomeLimitValue 130% of federal poverty, see below, var householdPovertyLevel
+        grossIncomeEligible = true;
+    }
+    else {
+        grossIncomeEligible = false;
+    }
+    return grossIncomeEligible;  
+}
+
+//Eligibility Check: Net Income 
 function netIncomeEligibilityCheck(){
     netIncomeLimitValue = povertyLevelArray[client.householdSize];
     if (client.netIncome <= netIncomeLimitValue){
