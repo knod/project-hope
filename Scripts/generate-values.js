@@ -16,25 +16,8 @@ var client = {
 var deductionFamilySizeArray = [0, 157, 157, 157, 168, 197, 226];
 
 
-var deduction = {
-    TwentyPercent: 0, 
-    FamilySize: 0, 
-    DependentCare: 0, 
-    ChildSupport: 0, 
-    MedExpense: 0,  
-    ShelterCost: 0, 
-}
-
-var shelterCostDeductionSum = 0; 
-
-
-
-
-//use map to sum values of deduction Object ? 
-var netIncomeDeductionSum = deduction.TwentyPercent + deduction.FamilySize + deduction.DependentCare + deduction.MedExpense + deduction.ChildSupport; 
-
 //TO DO: Rename function. See netIncomeDeductionValuesGenerate as template. 
-document.getElementById("resourceButton").addEventListener("click", genClientPropertyValueResourcesGenerate);
+document.getElementById("resourceButton").addEventListener("click", genClientPropertyValueResources);
 function genClientPropertyValueResources(){        
     client.senior = parseInt(document.querySelector('input[name="senior"]:checked').value);
     client.disabled = parseInt(document.querySelector('input[name="disabled"]:checked').value);
@@ -55,46 +38,89 @@ function genClientPropertyValueGrossIncome(){
     grossIncomeEligibilityDisplayMessage(); 
 }
 
-document.getElementById("netIncomeButton").addEventListener("click", netIncomeDeductionValuesGenerate);
-function netIncomeDeductionValuesGenerate(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var deduction = {
+    TwentyPercent: 0, 
+    FamilySize: 0, 
+    DependentCare: 0, 
+    ChildSupport: 0, 
+    MedExpense: 0,  
+}
+
+var shelterCostDeductionSum = 0; 
+var netIncomeDeductionSum = 0; 
+
+
+
+
+
+document.getElementById("netIncomeButton").addEventListener("click", genClientPropertyValueNetIncome);
+function genClientPropertyValueNetIncome(){
     genClientPropertyValueGrossIncome(); 
+    genDeductionPropertyValue();
+    genNetIncomeDeductionSum();  
+    genShelterDeductionSum();
+    genShelterDeductionLimit();
+    netIncomeValueGenerate(); 
+    netIncomeEligibilityCheck(); 
+    netIncomeEligibilityDisplayMessage();    
+} 
+
+function genDeductionPropertyValue(){
     deduction.TwentyPercent = parseInt(document.getElementById("earnedIncome").value*0.2); 
     deduction.FamilySize = parseInt(deductionFamilySizeArray[client.householdSize]); 
     deduction.DependentCare= parseInt(document.getElementById("deductionDependentCareValue").value);
     deduction.MedExpense = parseInt(document.getElementById("deductionMedicalExpenseValue").value);
     deduction.ChildSupport = parseInt(document.getElementById("deductionChildSupportValue").value);
-    deduction.ShelterCost = shelterDeductionSumGenerate();
-    netIncomeDeductionSumGenerate(); 
-    //sum deduction Object to get a single value
+    genMedicalExpenseDeductionSum(); //modifies value of deduction.MedExpense 
 }; 
 
-//EXAMPLE CODE OF HOW TO SUM AN OBJECT'S VALUES
-        //name of function once complete: function netIncomeDeductionSumGenerate();
-//final line in this function is to then call netIncomeValueGenerate (), see function below 
-
-//var deduction = {   
-//    TwentyPercent: 10,
-//    FamilySize: 20,
-//    DependentCar: 40, 
-//    MedExpense: 80, 
-//    ChildSupport: 160,
-//}
-//var deductionArray = Object.values(deduction); 
-//function sumDeductionArray (total, num) {
-//    return total + num;
-//}
+function genNetIncomeDeductionSum(){
+    var deductionArray = Object.values(deduction);
+    function getSum(total, num) {
+    return total + num;
+  }
+  netIncomeDeductionSum = deductionArray.reduce(getSum);
+};
 
 
 
-    medicalExpenseDeductionSumGenerate();    
-    shelterDeductionLimitGenerate(); 
-    netIncomeValueGenerate();  
-    netIncomeEligibilityCheck(); 
-    netIncomeEligibilityDisplayMessage();
-    }
-
-//netIncomeDeductionSum = 
-function medicalExpenseDeductionSumGenerate(){  
+function genMedicalExpenseDeductionSum(){  
     if(deduction.MedExpense > 35){
         deduction.MedExpense -= 35;  
     } else {
@@ -103,9 +129,8 @@ function medicalExpenseDeductionSumGenerate(){
 }
 
 /*Shelter Deduction*/
-function shelterDeductionSumGenerate(){
+function genShelterDeductionSum(){
     client.netIncome = client.grossIncome - netIncomeDeductionSum;
-    shelterCostDeductionSum = 0; //global variable used in netIncomeValueGenerate() function 
     var shelterCostSum = 0; //local variable used to determine global shelterCostDeductionSum
     var shelterInput = document.getElementsByClassName("shelterInput"); 
     for(var i=0; i<shelterInput.length; i++){
@@ -118,7 +143,7 @@ function shelterDeductionSumGenerate(){
     } 
 }
 
-function shelterDeductionLimitGenerate(){
+function genShelterDeductionLimit(){
     if(document.getElementById("seniorTrue").checked === true || document.getElementById("disabledTrue").checked === true ){
         return shelterCostDeductionSum; 
     } else if(shelterCostDeductionSum > 517) {
@@ -129,7 +154,6 @@ function shelterDeductionLimitGenerate(){
 }
 
 function netIncomeValueGenerate(){
-    console.log(client.grossIncome, netIncomeDeductionSum, shelterDeductionSum); 
     client.netIncome = client.grossIncome - netIncomeDeductionSum - shelterCostDeductionSum;
 }
 

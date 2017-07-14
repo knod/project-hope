@@ -4,30 +4,6 @@ var netIncomeEligible = false;
 var netIncomeLimitValue = 0; 
 
 
-//User's net income limit will dependend upon total number of people in household, with values shown in householdPovertyLevel Object
-//Values reflect 100% of federal poverty level based on household size. Valid through 9/30/2017
-var householdPovertyLevel = {
-    One: 990, 
-    Two: 1335, 
-    Three: 1680, 
-    Four: 2025, 
-    Five: 2370, 
-    Six: 2715,
-    Seven: 3061, 
-    Eight: 3408, 
-}
-//Array of householdPovertyLevel object.  
-var povertyLevelArray = [0, 
-                         householdPovertyLevel.One, 
-                         householdPovertyLevel.Two, 
-                         householdPovertyLevel.Three, 
-                         householdPovertyLevel.Four, 
-                         householdPovertyLevel.Five, 
-                         householdPovertyLevel.Six, 
-                         householdPovertyLevel.Seven, 
-                         householdPovertyLevel.Eight,
-                        ];
-
 //Eligibility Check: Resources
 function resourceEligibilityCheck(client){
     if(client.resources == 3251){
@@ -55,8 +31,33 @@ function grossIncomeEligibilityCheck(client){
 }
 
 //Eligibility Check: Net Income
+        //Net income eligibility is determined by comparing the user's net income and household size (ie, number of people in household) against 100% of the federal poverty level for families of the same household size.   
+        //If the user has LESS THAN OR EQUAL to the limit, they are eligible
+        //If the user has MORE THAN the limit, they are ineligible
+        //Limits are listed below
+var householdPovertyLevel = {
+    One: 990,           //net income limit for a household of one
+    Two: 1335,          //net income limit for a household of two
+    Three: 1680,        //net income limit for a household of three
+    Four: 2025,         //net income limit for a household of four
+    Five: 2370,         //net income limit for a household of five
+    Six: 2715,          //net income limit for a household of six
+    Seven: 3061,        //net income limit for a household of seven
+    Eight: 3408,        //net income limit for a household of eight
+}
+//Array of householdPovertyLevel object.  
+var povertyLevelArray = [0, 
+                         householdPovertyLevel.One, 
+                         householdPovertyLevel.Two, 
+                         householdPovertyLevel.Three, 
+                         householdPovertyLevel.Four, 
+                         householdPovertyLevel.Five, 
+                         householdPovertyLevel.Six, 
+                         householdPovertyLevel.Seven, 
+                         householdPovertyLevel.Eight,
+                        ];
+
 function netIncomeEligibilityCheck(){
-    console.log(client); 
     netIncomeLimitValue = povertyLevelArray[client.householdSize];
     if (client.netIncome <= netIncomeLimitValue){
         netIncomeEligible = true;
@@ -65,3 +66,4 @@ function netIncomeEligibilityCheck(){
     }
     return netIncomeEligible; 
 }
+
