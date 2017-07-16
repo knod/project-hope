@@ -48,7 +48,7 @@ function eligibilityFunctions(){
     generateNetIncomeDeductionSum();  
     generateShelterDeductionSum();
     generateShelterDeductionLimit();
-    netIncomeValueGenerate();   
+    generateFinalNetIncomeValue();   
     getEligibility(); 
     displayEligibility();
     allotmentValueGenerate(); 
@@ -103,6 +103,6 @@ function generateShelterDeductionLimit(){
     }
 }
 
-function netIncomeValueGenerate(){
+function generateFinalNetIncomeValue(){
     client.netIncome = client.grossIncome - netIncomeDeductionSum - shelterCostDeductionSum;
 }
