@@ -1,11 +1,4 @@
 //All values and logic referenced from: https://www.fns.usda.gov/snap/eligibility
-
-//client object with values populated by user input
-
-
-var shelterCostDeductionSum = 0; 
-var netIncomeDeductionSum = 0; 
-
 var deduction = {
     TwentyPercent: 0, 
     FamilySize: 0, 
@@ -13,9 +6,10 @@ var deduction = {
     ChildSupport: 0, 
     MedExpense: 0,  
 }
+var shelterCostDeductionSum = 0; 
+var netIncomeDeductionSum = 0; 
 
-//Net Income Deduction, Family Size
-    //Size of deduction depends upon number of people in user's household
+//Net Income Deduction, Family Size: Value depends upon user's household size
 var deductionFamilySizeArray = [0, 157, 157, 157, 168, 197, 226];
 
 //All number inputs have the default value of 0
@@ -32,6 +26,7 @@ for(var i=0; i<userResponse.length; i++){
 for(var i=0; i<userResponse.length; i++){ 
     userResponse[i].addEventListener("change", retrieveInput);
 }
+//If user changes household size, fire retrieveInput function 
 document.getElementById("householdSize").addEventListener("change", retrieveInput); 
 
 //RetrieveInput function: Update client Object with user inputs
@@ -47,40 +42,17 @@ function retrieveInput(){
     console.log(client);
 }
 
-document.getElementById("netIncomeButton").addEventListener("click", genClientPropertyValueNetIncome);
-function genClientPropertyValueNetIncome(){
+document.getElementById("netIncomeButton").addEventListener("click", eligibilityFunctions);
+function eligibilityFunctions(){
     generateNetIncomeDeductions();  
-    genNetIncomeDeductionSum();  
-    genShelterDeductionSum();
-    genShelterDeductionLimit();
-    netIncomeValueGenerate();  
+    generateNetIncomeDeductionSum();  
+    generateShelterDeductionSum();
+    generateShelterDeductionLimit();
+    netIncomeValueGenerate();   
     getEligibility(); 
     displayEligibility();
     allotmentValueGenerate(); 
 } 
-
-
-
-//ORPHAN FUNCTIONS 
-
-
-//resourceEligibilityDisplayMessage();
-//grossIncomeEligibilityDisplayMessage(); 
-//netIncomeEligibilityDisplayMessage(); 
-
-
-//TO DO: Rename function. See netIncomeDeductionValuesGenerate as template. 
-function retrieveClientValues(){        
-    client.senior = parseInt(document.querySelector('input[name="senior"]:checked').value);
-    client.disabled = parseInt(document.querySelector('input[name="disabled"]:checked').value);
-    client.resources = parseInt(document.querySelector('input[name="resourcesAmount"]:checked').value);
-    client.householdSize = parseInt(document.getElementById("householdSize").value);
-    client.earnedIncome = parseInt(document.getElementById("earnedIncome").value);
-    client.benefitIncome = parseInt(document.getElementById("benefitIncome").value);
-    client.grossIncome = client.earnedIncome + client.benefitIncome; 
-    grossIncomeLimitValue = Math.ceil(povertyLevelArray[client.householdSize]*1.3); //1.3 to set 130% of federal poverty level
-};
-
 
 function generateNetIncomeDeductions(){
     deduction.TwentyPercent = parseInt(document.getElementById("earnedIncome").value*0.2); 
@@ -89,8 +61,7 @@ function generateNetIncomeDeductions(){
     deduction.MedExpense = parseInt(document.getElementById("deductionMedicalExpenseValue").value);
     deduction.ChildSupport = parseInt(document.getElementById("deductionChildSupportValue").value);
     generateMedicalExpenseDeduction(); //modifies value of deduction.MedExpense 
-}; 
-
+};
 function generateMedicalExpenseDeduction(){  
     if(deduction.MedicalExpense > 35){
         deduction.MedicalExpense -= 35;  
@@ -99,16 +70,16 @@ function generateMedicalExpenseDeduction(){
     }
 }
 
-function genNetIncomeDeductionSum(){
+function generateNetIncomeDeductionSum(){
     var deductionArray = Object.values(deduction);
     function getSum(total, num) {
-    return total + num;
-  }
-  netIncomeDeductionSum = deductionArray.reduce(getSum);
+        return total + num;
+    }
+    netIncomeDeductionSum = deductionArray.reduce(getSum);
 };
 
 /*Shelter Deduction*/
-function genShelterDeductionSum(){
+function generateShelterDeductionSum(){
     client.netIncome = client.grossIncome - netIncomeDeductionSum;
     var shelterCostSum = 0; //local variable used to determine global shelterCostDeductionSum
     var shelterInput = document.getElementsByClassName("shelterInput"); 
@@ -122,7 +93,7 @@ function genShelterDeductionSum(){
     } 
 }
 
-function genShelterDeductionLimit(){
+function generateShelterDeductionLimit(){
     if(document.getElementById("seniorTrue").checked === true || document.getElementById("disabledTrue").checked === true ){
         return shelterCostDeductionSum; 
     } else if(shelterCostDeductionSum > 517) {
@@ -132,20 +103,6 @@ function genShelterDeductionLimit(){
     }
 }
 
-
-
-
-
-
-
 function netIncomeValueGenerate(){
     client.netIncome = client.grossIncome - netIncomeDeductionSum - shelterCostDeductionSum;
 }
-
-//
-//
-//
-//
-//
-//
-//
