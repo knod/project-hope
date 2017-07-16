@@ -25,6 +25,12 @@ var netIncomeHouseholdNumberMessage = document.getElementById("netIncomeHousehol
 var netIncomeLimitMessage = document.getElementById("netIncomeLimitMessage");
 var netIncome = document.getElementById("netIncome");
 
+function displayEligibility(){
+    resourceEligibilityDisplayMessage();
+    grossIncomeEligibilityDisplayMessage();
+    netIncomeEligibilityDisplayMessage()
+}
+
 //FUNCTIONS THAT DISPLAY ELIGIBILITY STATUS TO THE USER: Resources
 function resourceEligibilityDisplayMessage(){
     if(client.resources == 3251){

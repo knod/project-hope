@@ -12,13 +12,13 @@
         <!--Question: Senior in household?-->
             <div class="question userResponse" id="questionSeniorStatus">1. Is anyone in your household 60 years of age or older?<br>
                 <input type="radio" name="senior" id="seniorTrue" value="1">Yes<br>
-                <input type="radio" name="senior" id="seniorFalse" value="0"> No
+                <input type="radio" name="senior" id="seniorFalse" value="0" class = "defaultFalse"> No
                 <br><br>
             </div>
         <!--Question: Disabled person in household?-->
             <div class="question userResponse" id="questionDisabledStatus">2. Is anyone in your household disabled?<br>
-            <input type="radio" name="disabled" id="disabledTrue" value="1">Yes<br>
-            <input type="radio" name="disabled" id="disabledFalse" value="0"> No
+                <input type="radio" name="disabled" id="disabledTrue" value="1">Yes<br>
+                <input  type="radio" name="disabled" id="disabledFalse" class = "defaultFalse" value="0"> No
             <br><br>
         </div>
         <!--Question: Savings amount?-->
@@ -28,7 +28,7 @@
         <div class = "userResponse" id= "questionResourcesAmount">
             <input type="radio" name="resourcesAmount" value=3251>$3,251 or more<br>
             <input type="radio" name="resourcesAmount" value=3250>$2,251 to $3,250<br>
-            <input type="radio" name="resourcesAmount" value=2250>$2,250 or less
+            <input type="radio" name="resourcesAmount" value=2250 class = "defaultFalse">$2,250 or less
         </div> 
         <br><br>
         <hr>      
@@ -107,7 +107,6 @@
             <input id="deductionMedicalExpenseValue" type="number">
         </div>
         <!--Deduction: Shelter Costs-->
-        <div class="eligibilityHeading">Housing</div>
         <div class="question">Fill out the following <em>monthly</em> expenses to determine if you can get a net income deduction from your housing costs:</div> 
         <br><br>  
         Fuel (for heating and cooking)<input type="number" class="questionWithIntegerAnswer shelterInput" id="shelterFuelCost">
@@ -164,9 +163,9 @@
             <br><br>
             Your monthly net income is $<span id = netIncome></span>.         
             You will receive a monthly allotment of $<span id="allotmentValueMessage"></span>
-        </div>    
-        <script src="/Scripts/display.js"></script>
-        <script src="/Scripts/generate-values.js"></script>
+        </div>
+        <script src="/Scripts/display-eligibility.js"></script>
+        <script src="/Scripts/retrieve-values.js"></script>
         <script src="/Scripts/generate-allotment.js"></script>
         <script src="/Scripts/get-eligibility.js"></script>
     </body>
