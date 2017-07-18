@@ -4,6 +4,7 @@
 //120277, 8 -> income level is 3
 //120277, 4 -> income level is 4
 
+QUnit.module("Function getIncomeLevel:");
 QUnit.test( "income level on the boundary", function( assert ) {
   assert.equal( getIncomeLevel({ annualHouseholdIncome: 14901, householdSize: 1 }), 1, "Passed!" );
 });
@@ -24,3 +25,5 @@ QUnit.test( "same income, half size family should return higher value", function
   assert.equal( getIncomeLevel({ annualHouseholdIncome: 120277, householdSize: 4 }), 4, "Passed!" );
 });
 
+QUnit.module("Function getEligibility:");
+// TODO: add

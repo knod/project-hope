@@ -63,7 +63,7 @@ function getIncomeLevel({ annualHouseholdIncome, householdSize }) {
  *
  * @return {EligibilityMatrix}
  */
-function planType({
+function getEligibility({
     householdSize,
     annualHouseholdIncome,
     age,
@@ -128,7 +128,7 @@ function planType({
 
 
 // Here's an example:
-planType({
+getEligibility({
     householdSize: 3,
     annualHouseholdIncome: 30000,
     age: 45,
