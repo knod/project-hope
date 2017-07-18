@@ -1,21 +1,20 @@
 // Attempt to https://www.bmchp.org/need-affordable-health-insurance/eligibility-guidelines
 
 /**
- * Income thresholds for different household sizes. For each property, the key is the hosuehold size
- * and the value is an array of minimum income thresholds. First threshold is assumed to be zero.
- * I.e. if the value is [15528, 35017, 46880] then the first income level would be 0 to $15,527,
- * second $15,528 to $35,016, etc.
+ * Income thresholds for different household sizes. Arrays are ordered by family size. I.e. INCOME_THRESHOLDS[0]
+ * corresponds to the income thresholds for a family of 1. If that value is [0, 15528, 35017, 46880] then the first
+ * income level would be 0 to $15,527, second $15,528 to $35,016, etc.
  */
-const INCOME_THRESHOLDS = {
-    1: [15528, 35017, 46880],
-    2: [20928, 47197, 62928],
-    3: [26328, 59377, 79164],
-    4: [31728, 71556, 95400],
-    5: [37128, 83736, 111648],
-    6: [42528, 95916, 127884],
-    7: [47928, 108096, 144120],
-    8: [53328, 120276, 160368]
-}
+const INCOME_THRESHOLDS = [
+    [0, 15528, 35017, 46880],
+    [0, 20928, 47197, 62928],
+    [0, 26328, 59377, 79164],
+    [0, 31728, 71556, 95400],
+    [0, 37128, 83736, 111648],
+    [0, 42528, 95916, 127884],
+    [0, 47928, 108096, 144120],
+    [0, 53328, 120276, 160368]
+]
 
 /**
  * Grabs the income level (1, 2, 3, or 4) for a given annual household income and household size
@@ -23,15 +22,20 @@ const INCOME_THRESHOLDS = {
  * @return {Number} Number will be 1, 2, 3 or 4
  */
 function getIncomeLevel({ annualHouseholdIncome, householdSize }) {
-    if (!annualHouseholdIncome || !householdSize || householdSize > 8) {
-        return null;
+    if (!annualHouseholdIncome || !householdSize) {
+        throw 'Missing arguments';
     }
 
-    const thresholds = INCOME_THRESHOLDS[householdSize];
-    let level;
+    if (householdSize > 8) {
+        // TODO: There's probably a better way to handle this case...
+        throw 'Too many people in that family. How should we handle those?';
+    }
 
-    for (let i = 0; i < thresholds.length; i++) {
-        if (annualHouseholdIncome < thresholds[i]) {
+    const thresholds = INCOME_THRESHOLDS[householdSize - 1];
+
+    let level = 1;
+    for (let i = thresholds.length - 1; i >= 0; i--) {
+        if (annualHouseholdIncome >= thresholds[i]) {
             level = i + 1;
             break;
         }
@@ -66,7 +70,7 @@ function planType({
     usCitizen = false,
     usAlien = false,
     massResident = false,
-    pregant = false,
+    pregnant = false,
     hiv = false,
     disabled = false,
     breastCancer = false,
@@ -131,7 +135,7 @@ planType({
     usCitizen: false,
     usAlien: true,
     massResident: true,
-    pregant: false,
+    pregnant: false,
     hiv: false,
     disabled: false,
     breastCancer: false,
