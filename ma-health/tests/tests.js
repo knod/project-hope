@@ -5,22 +5,22 @@
 //120277, 4 -> income level is 4
 
 QUnit.test( "income level on the boundary", function( assert ) {
-  assert.ok( getIncomeLevel({ annualHouseholdIncome: 14901, householdSize: 1 }) == 1, "Passed!" );
+  assert.equal( getIncomeLevel({ annualHouseholdIncome: 14901, householdSize: 1 }), 1, "Passed!" );
 });
 
 QUnit.test( "income level on the upper boundary", function( assert ) {
-  assert.ok( getIncomeLevel({ annualHouseholdIncome: 15529, householdSize: 2 }) == 2, "Passed!" );
+  assert.equal( getIncomeLevel({ annualHouseholdIncome: 15529, householdSize: 1 }), 2, "Passed!" );
 });
 
 QUnit.test( "midrange income", function( assert ) {
-  assert.ok( getIncomeLevel({ annualHouseholdIncome: 60000, householdSize: 5 }) == 2, "Passed!" );
+  assert.equal( getIncomeLevel({ annualHouseholdIncome: 60000, householdSize: 5 }), 2, "Passed!" );
 });
 
 QUnit.test( "extreme values", function( assert ) {
-  assert.ok( getIncomeLevel({ annualHouseholdIncome: 120277, householdSize: 8 }) == 3, "Passed!" );
+  assert.equal( getIncomeLevel({ annualHouseholdIncome: 120277, householdSize: 8 }), 3, "Passed!" );
 });
 
 QUnit.test( "same income, half size family should return higher value", function( assert ) {
-  assert.ok( getIncomeLevel({ annualHouseholdIncome: 120277, householdSize: 4 }) == 4, "Passed!" );
+  assert.equal( getIncomeLevel({ annualHouseholdIncome: 120277, householdSize: 4 }), 4, "Passed!" );
 });
 
