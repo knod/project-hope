@@ -144,7 +144,6 @@
         <div id="resultsPage">   
             <p>You are <span id="finalEligibilityEval"></span> eligible for SNAP.</p>
             <p id="allotmentContainer">You should receive $<span id="allotmentValueMessage"></span> each month</p>
-            <p>You can adjust any of the items below to see if you still qualify, and how many SNAP dollars you'd get each month</p> 
 <!--
             <p id="seniorDisplayNumber">1</p>
             <p id="disabledDisplayNumber">2</p>
@@ -161,8 +160,16 @@
             <div id = "ineligibilityExplainerContainer">
             Why are you not eligible?
                 <div id = "resourceEligibilityMessage">
-                    You<span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household, which means you can have a maximum of $<span id ="resourceLimitMessage"></span> in savings and qualify for SNAP. 
+                    <p><b>You have too much in savings</b></p>
+                    <p>
+                        You <span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household. That means your savings must be less than $<span id ="resourceLimitMessage"></span> in order to qualify for SNAP.
+                    </p>
                 </div>
+                <br>     
+                <div id = "resourceEligibilityMessage_disqualifyingResources">
+                    You cannot have more than $3,250 in savings and qualify for SNAP.
+                </div>
+                <br><br>
                 <div id = "grossIncomeEligibilityMessage">
                     You have <span id="householdNumberMessage"></span> member(s) in your household, which means your gross income must be $<span id="grossIncomeLimitMessage"></span> per month, or less, in order to qualify for SNAP.
                     <br><br>

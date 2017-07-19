@@ -39,35 +39,63 @@ function displayEligibilityDetails(){
         finalEligibilityEval.innerHTML = "";
     } else {
         finalEligibilityEval.innerHTML = "not";
-        ineligibilityExplainer(); 
+        document.getElementById("allotmentContainer").style.display = "none"; 
+        displayIneligibilityExplainer(); 
     }
 }
 
-function ineligibilityExplainer(){
-    document.getElementById("allotmentContainer").style.display="none"; 
-    document.getElementById("ineligibilityExplainerContainer").style.display="initial"; 
+
+function displayIneligibilityExplainer(){
+
+    document.getElementById("ineligibilityExplainerContainer").style.display = "initial";
+    function resourceIneligibilityExplainer() {
+        console.log("A");
+        if(resourceEligible == true){
+            console.log("A1");
+            resourceEligibilityMessage.style.display = "none";
+            resourceEligibilityMessage_disqualifyingResources.style.display = "none";
+        } else if(client.resources == 3251){
+            console.log("A2");
+            resourceEligibilityMessage.style.display = "none";
+            resourceEligibilityMessage_disqualifyingResources.style.display = "initial"; 
+        } else {
+            console.log("A3");
+            resourceEligibilityMessage.style.display = "initial";
+            resourceEligibilityMessage_disqualifyingResources.style.display = "none";
+            seniorOrDisabledMessage.innerHTML = (client.senior==1 || client.disabled==1) ? "":" do not";
+            resourceLimitMessage.innerHTML =  (client.senior || client.disabled) ? "3,250":"2,250";
+        }         
+    }
+    function grossIncomeIneligibilityExplainer(){
+        if(grossIncomeEligible == true){
+            return;
+        } else {
+            grossIncomeEligibilityMessage.style.display = "initial"; 
+            grossIncomeEligibilityEval.innerHTML = (grossIncomeEligible == true) ? "":" not";
+            grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 
+            householdNumberMessage.innerHTML = client.householdSize;
+            grossIncome.innerHTML = client.grossIncome;
+    } 
+        
+    function netIncomeIneligibilityExplainer(){
+        if(netIncomeEligible == true){
+            return; 
+        } else {
+            netIncomeEligibilityMessage.style.display = "initial"; 
+            netIncomeLimitMessage.innerHTML = netIncomeLimitValue; 
+            netIncomeHouseholdNumberMessage.innerHTML = client.householdSize;
+            netIncome.innerHTML = client.netIncome;
+        }
+    }
     resourceIneligibilityExplainer(); 
     grossIncomeIneligibilityExplainer(); 
     netIncomeIneligibilityExplainer(); 
-}
+};
 
-function resourceIneligibilityExplainer(); {
-    //use conditionals to check IF resource eligible
-        //IF true return
-        //IF false, explain ineligibility to user
-}
 
-function grossIncomeIneligibilityExplainer();{
-    //use conditionals to check IF resource eligible
-    //IF true return
-    //IF false, explain ineligibility to user
-} 
 
-function netIncomeIneligibilityExplainer();{
-    //use conditionals to check IF resource eligible
-    //IF true return
-    //IF false, explain ineligibility to user
-}
+
+
 
 
 
