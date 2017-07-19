@@ -63,22 +63,10 @@ function getIncomeLevel({ annualHouseholdIncome, householdSize }) {
  *
  * @return {EligibilityMatrix}
  */
-
-/**
- * TODO: if we use the getCitizenshipEligibility and getQualifyingCondition functions,
- * finish refactoring getEligibility to use the new arguments qualifyingCondition
- * and citizenshipEligibility
- */
-
 function getEligibility({
     householdSize,
     annualHouseholdIncome,
     age,
-
-    /**
-     * remove arguments below if we switch to getCitizenshipEligibility
-     * and getQualifyingCondition functions
-
     usCitizen = false,
     usAlien = false,
     massResident = false,
@@ -88,11 +76,6 @@ function getEligibility({
     breastCancer = false,
     cervicalCancer = false,
     caretaker = false
-
-    */
-
-    qualifyingCondition = false;  // this comes from getQualifyingCondition
-    citizenshipEligibility;  // list returned from getCitizenshipEligibility
 }) {
     const incomeLevel = getIncomeLevel({ annualHouseholdIncome, householdSize });
 
@@ -143,84 +126,19 @@ function getEligibility({
     return eligibility;
 }
 
+
 // Here's an example:
 getEligibility({
-householdSize: 3,
-annualHouseholdIncome: 30000,
-age: 45,
-usCitizen: false,
-usAlien: true,
-massResident: true,
-pregnant: false,
-hiv: false,
-disabled: false,
-breastCancer: false,
-cervicalCancer: false,
-caretaker: false
+    householdSize: 3,
+    annualHouseholdIncome: 30000,
+    age: 45,
+    usCitizen: false,
+    usAlien: true,
+    massResident: true,
+    pregnant: false,
+    hiv: false,
+    disabled: false,
+    breastCancer: false,
+    cervicalCancer: false,
+    caretaker: false
 })
-
-/**
- * Took at stab at adding getCitizenshipEligibility and getQualifyingCondition
- * in response to issue #8
- */
-
-/**
- * "Break getEligibility function into smaller helper functions:
-
- * Function to return whether or not the user has a qualifying condition for
- * MassHealth (pregnant, HIV, cervical/breast cancer, has children under 19 in
- * the house)
-
- * Function that takes user's citizenship status and returns what health plans
- * they're eligible for (not entirely sure on this one? discuss)"
- */
-
-function getCitizenshipEligibility({
-    usCitizen = false,
-    usAlien = false,
-    massResident = false,
-})
-    const eligibility = {
-        connectorCare: false,
-        qualifiedHealthPlan: false,
-        massHealth: false,
-        massHealthCarePlus: false
-    };
-
-    if (!usCitizen && !usAlien && !massResident) {
-        return eligibility;
-    }
-
-    else if (usCitizen && massResident) {
-        connectorCare: true,
-        qualifiedHealthPlan: true,
-        massHealth: true,
-        massHealthCarePlus: true,
-    }
-
-    else if (usCitizen || usAlien) {
-        connectorCare: true,
-        qualifiedHealthPlan: true,
-    }
-
-    return eligibility;
-
-}
-
-function getQualifyingCondition({
-    pregnant = false,
-    hiv = false,
-    disabled = false,
-    breastCancer = false,
-    cervicalCancer = false,
-    caretaker = false
-})
-    let qualifyingCondition = false;
-
-    if (pregnant || hiv || disabled || breastCancer || cervicalCancer || caretaker) {
-            qualifyingCondition: true;
-        }
-
-    return qualifyingCondition
-
-}
