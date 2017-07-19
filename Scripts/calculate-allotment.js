@@ -1,3 +1,5 @@
+//All values and logic referenced from: https://www.fns.usda.gov/snap/eligibility
+
 var maximumMonthlyAllotment = {
     One: 194, 
     Two: 357, 

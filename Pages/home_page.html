@@ -6,7 +6,8 @@
     </head>
     <body>
         <h2>SNAP Support</h2>
-        <hr>
+        <div id="intakePage">
+            <hr>
         <!--Eligibility Criteria: RESOURCES-->
         <div class="eligibilityHeading">Resources</div>
         <!--Question: Senior in household?-->
@@ -136,37 +137,49 @@
             <input type="number" class="shelterInput" id="shelterHomeTaxesCost">
             <br>
         </div>
-        <button id="netIncomeButton">Check My Eligibility</button>
-    <hr>
-        <div id = "resourceEligibilityMessage">
-            <b>Resources Eligibility: <span id="resourceEligibilityEval"></span> eligible.</b>
-            <br>
-            You<span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household, which means you can have a maximum of $<span id ="resourceLimitMessage"></span> in savings and qualify for SNAP. 
+            <button id="netIncomeButton">Check My Eligibility</button>
         </div>
-        <br>     
-        <div id = "resourceEligibilityMessage_disqualifyingResources">
-            You are not eligible for SNAP. You cannot have more than $3,250 in savings and qualify for SNAP.
+          
+        <!--RESULTS PAGE -->
+        <div id="resultsPage">   
+            <p>You are <span id="finalEligibilityEval"></span> eligible for SNAP.</p>
+            <p id="allotmentContainer">You should receive $<span id="allotmentValueMessage"></span> each month</p>
+            <p>You can adjust any of the items below to see if you still qualify, and how many SNAP dollars you'd get each month</p> 
+<!--
+            <p id="seniorDisplayNumber">1</p>
+            <p id="disabledDisplayNumber">2</p>
+            <p id="savingsDisplayNumber">3</p>
+            <p id="resourcesDisplayNumber">4</p>
+            <p id="householdSizeDisplayNumber">5</p>
+            <p id="grossIncomeDisplayNumber"></p>
+                breaks down to earned income and benefit income on hover\clicck
+            <p id="earnedIncomeDisplayNumber">6</p>
+            <p id="benefitIncomeDisplayNumber">7</p>
+            <p id="netIncomeDisplayNumber">8<p>
+            <div id="ineligibleExplainer">
+-->
+            <div id = "ineligibilityExplainerContainer">
+            Why are you not eligible?
+                <div id = "resourceEligibilityMessage">
+                    You<span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household, which means you can have a maximum of $<span id ="resourceLimitMessage"></span> in savings and qualify for SNAP. 
+                </div>
+                <div id = "grossIncomeEligibilityMessage">
+                    You have <span id="householdNumberMessage"></span> member(s) in your household, which means your gross income must be $<span id="grossIncomeLimitMessage"></span> per month, or less, in order to qualify for SNAP.
+                    <br><br>
+                    Your monthly gross income is $<span id="grossIncome"></span>
+                </div>
+                <div id = "netIncomeEligibilityMessage">
+                Since you have <span id="netIncomeHouseholdNumberMessage"></span> member(s) in your household, your monthly net income must be $<span id="netIncomeLimitMessage"></span>, or less, in order to qualify for SNAP. 
+                <br><br>
+                Your monthly net income is $<span id = "netIncome"></span>.         
+                </div>
+            </div>
         </div>
-        <br><br>
-        <div id = "grossIncomeEligibilityMessage">
-            <b>Gross Income Eligibility: <span id="grossIncomeEligibilityEval"></span>eligible.</b>
-            <br>
-            You have <span id="householdNumberMessage"></span> member(s) in your household, which means your gross income must be $<span id="grossIncomeLimitMessage"></span> per month, or less, in order to qualify for SNAP.
-            <br><br>
-            Your monthly gross income is $<span id="grossIncome"></span>
-        </div>
-        <br><br>
-        <div id = "netIncomeEligibilityMessage">
-            <b>Net Income Eligibility:<span id="netIncomeEligibilityEval"></span> eligible.</b>
-            <br><br>
-            Since you have <span id="netIncomeHouseholdNumberMessage"></span> member(s) in your household, your monthly net income must be $<span id="netIncomeLimitMessage"></span>, or less, in order to qualify for SNAP. 
-            <br><br>
-            Your monthly net income is $<span id = netIncome></span>.         
-            You will receive a monthly allotment of $<span id="allotmentValueMessage"></span>
-        </div>
-        <script src="/Scripts/display-eligibility.js"></script>
+        <script src="/Scripts/display-net-income-followup-questions.js"></script>
         <script src="/Scripts/retrieve-values.js"></script>
-        <script src="/Scripts/generate-allotment.js"></script>
+        <script src="/Scripts/calculate-values.js"></script>
         <script src="/Scripts/get-eligibility.js"></script>
+        <script src="/Scripts/display-results-page.js"></script>
+        <script src="/Scripts/calculate-allotment.js"></script>
     </body>
 </html>

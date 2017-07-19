@@ -60,3 +60,11 @@ h2{
 #ownFollowUp{
     display: none
 }
+
+#resultsPage{
+    display: none; 
+}
+
+#ineligibilityExplainerContainer{
+    display: none; 
+}
