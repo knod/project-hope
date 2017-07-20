@@ -142,7 +142,7 @@
           
         <!--RESULTS PAGE -->
         <div id="resultsPage">   
-            <p>You are <span id="finalEligibilityEval"></span> eligible for SNAP.</p>
+            <h3><p>You are <span id="finalEligibilityEval"></span> eligible for SNAP.</p></h3>
             <p id="allotmentContainer">You should receive $<span id="allotmentValueMessage"></span> each month</p>
 <!--
             <p id="seniorDisplayNumber">1</p>
@@ -158,27 +158,31 @@
             <div id="ineligibleExplainer">
 -->
             <div id = "ineligibilityExplainerContainer">
-            Why are you not eligible?
+            <h2>Why are you not eligible?</h2>
                 <div id = "resourceEligibilityMessage">
                     <p><b>You have too much in savings</b></p>
-                    <p>
-                        You <span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household. That means your savings must be less than $<span id ="resourceLimitMessage"></span> in order to qualify for SNAP.
+                    <p>You <span id="seniorOrDisabledMessage"></span> have a senior or disabled person in your household.</p> <p>
+                    That means your savings must be less than $<span id ="resourceLimitMessage"></span> in order to qualify for SNAP.
                     </p>
                 </div>
                 <br>     
                 <div id = "resourceEligibilityMessage_disqualifyingResources">
-                    You cannot have more than $3,250 in savings and qualify for SNAP.
+                    <p><b>You have too much in savings</b></p>
+                    <p>You cannot have more than $3,250 in savings and qualify for SNAP.</p>
                 </div>
                 <br><br>
                 <div id = "grossIncomeEligibilityMessage">
-                    You have <span id="householdNumberMessage"></span> member(s) in your household, which means your gross income must be $<span id="grossIncomeLimitMessage"></span> per month, or less, in order to qualify for SNAP.
-                    <br><br>
-                    Your monthly gross income is $<span id="grossIncome"></span>
+                    <p><b>Your gross income is too high.</b></p>
+                    <p>Your monthly gross income is $<span id="grossIncome"></span></p>
+                    <p>Since you have <span id="householdNumberMessage"></span> member(s) in your household, your gross income must be $<span id="grossIncomeLimitMessage"></span> per month, or less, in order to qualify for SNAP.
+                    </p>
                 </div>
-                <div id = "netIncomeEligibilityMessage">
-                Since you have <span id="netIncomeHouseholdNumberMessage"></span> member(s) in your household, your monthly net income must be $<span id="netIncomeLimitMessage"></span>, or less, in order to qualify for SNAP. 
                 <br><br>
-                Your monthly net income is $<span id = "netIncome"></span>.         
+                <div id = "netIncomeEligibilityMessage">
+                    <p><b>Your net income is too high.</b></p>
+                    <p> Your monthly net income is $<span id = "netIncome"></span>.</p>
+                    <p>Since you have <span id="netIncomeHouseholdNumberMessage"></span> member(s) in your household your monthly net income must be $<span id="netIncomeLimitMessage"></span> or less, in order to qualify for SNAP.</p> 
+                <br><br>          
                 </div>
             </div>
         </div>

@@ -3,9 +3,17 @@
         //--> calls getEligibility 
             //--> generates allotment amount
 document.getElementById("netIncomeButton").addEventListener("click", eligibilityFunctions);
+
+var deduction = {
+    twentyPercent: 0,
+    familySize: 0,
+    dependentCare: 0,
+    medExpense: 0,
+    childSupport: 0,
+}
+
 function eligibilityFunctions(){
-    generateNetIncomeDeductions();  
-    generateNetIncomeDeductionSum();  
+    generateNetIncomeDeductions();    
     generateShelterDeductionSum();
     generateShelterDeductionLimit();
     generateFinalNetIncomeValue(); 
@@ -15,12 +23,13 @@ function eligibilityFunctions(){
 } 
 
 function generateNetIncomeDeductions(){
-    deduction.TwentyPercent = parseInt(document.getElementById("earnedIncome").value*0.2); 
-    deduction.FamilySize = parseInt(deductionFamilySizeArray[client.householdSize]); 
-    deduction.DependentCare= parseInt(document.getElementById("deductionDependentCareValue").value);
-    deduction.MedExpense = parseInt(document.getElementById("deductionMedicalExpenseValue").value);
-    deduction.ChildSupport = parseInt(document.getElementById("deductionChildSupportValue").value);
+    deduction.twentyPercent = parseInt(document.getElementById("earnedIncome").value*0.2); 
+    deduction.familySize = parseInt(deductionFamilySizeArray[client.householdSize]); 
+    deduction.dependentCare= parseInt(document.getElementById("deductionDependentCareValue").value);
+    deduction.medExpense = parseInt(document.getElementById("deductionMedicalExpenseValue").value);
+    deduction.childSupport = parseInt(document.getElementById("deductionChildSupportValue").value);
     generateMedicalExpenseDeduction(); //modifies value of deduction.MedExpense 
+    generateNetIncomeDeductionSum();
 };
 function generateMedicalExpenseDeduction(){  
     if(deduction.MedicalExpense > 35){

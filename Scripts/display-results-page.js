@@ -27,10 +27,10 @@ var netIncome = document.getElementById("netIncome");
 function displayResultsPage(){
     document.getElementById("intakePage").style.display = "none"; 
     document.getElementById("resultsPage").style.display = "initial";
-    displayEligibilityDetails(); 
+    displayEligibility(); 
 }
 
-function displayEligibilityDetails(){
+function displayEligibility(){
     var finalEligibilityEval = document.getElementById("finalEligibilityEval");
     if (resourceEligible == true && grossIncomeEligible == true && netIncomeEligible == true){
         finalEligibilityEval.innerHTML = "";
@@ -43,39 +43,33 @@ function displayEligibilityDetails(){
 
 
 function displayIneligibilityExplainer(){
+    console.log("A");
     document.getElementById("ineligibilityExplainerContainer").style.display = "initial";
     function resourceIneligibilityExplainer() {
-        console.log("A");
         if(resourceEligible == true){
-            console.log("A1");
             resourceEligibilityMessage.style.display = "none";
             resourceEligibilityMessage_disqualifyingResources.style.display = "none";
-        } else if(client.resources == 3251){
-            console.log("A2");
+        } else if(client.resources == 3251){ 
             resourceEligibilityMessage.style.display = "none";
             resourceEligibilityMessage_disqualifyingResources.style.display = "initial"; 
         } else {
-            console.log("A3");
             resourceEligibilityMessage.style.display = "initial";
             resourceEligibilityMessage_disqualifyingResources.style.display = "none";
             seniorOrDisabledMessage.innerHTML = (client.senior==1 || client.disabled==1) ? "":" do not";
             resourceLimitMessage.innerHTML =  (client.senior || client.disabled) ? "3,250":"2,250";
         }
+    }
     function grossIncomeIneligibilityExplainer(){
         if(grossIncomeEligible == true){
             return;
         } else {
+            console.log("B");
             grossIncomeEligibilityMessage.style.display = "initial"; 
             grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 
             householdNumberMessage.innerHTML = client.householdSize;
             grossIncome.innerHTML = client.grossIncome;
         }
-    }   
-            grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 
-            householdNumberMessage.innerHTML = client.householdSize;
-            grossIncome.innerHTML = client.grossIncome;
-    } 
-        
+    }         
     function netIncomeIneligibilityExplainer(){
         if(netIncomeEligible == true){
             return; 
@@ -89,7 +83,7 @@ function displayIneligibilityExplainer(){
     resourceIneligibilityExplainer(); 
     grossIncomeIneligibilityExplainer(); 
     netIncomeIneligibilityExplainer(); 
-    };
+};
 
 
 
