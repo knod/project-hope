@@ -71,9 +71,6 @@ function getIncomeLevel({ annualHouseholdIncome, householdSize }) {
  */
 
 function getEligibility({
-    householdSize,
-    annualHouseholdIncome,
-    age,
 
     /**
      * remove arguments below if we switch to getCitizenshipEligibility
@@ -90,7 +87,9 @@ function getEligibility({
     caretaker = false
 
     */
-
+    householdSize,
+    annualHouseholdIncome,
+    age,
     qualifyingCondition = false;  // this comes from getQualifyingCondition
     citizenshipEligibility;  // list returned from getCitizenshipEligibility
 }) {
@@ -114,7 +113,7 @@ function getEligibility({
         if (age < 64) {
             eligibility.massHealthCarePlus = true;
 
-            if (pregnant || hiv || disabled || breastCancer || cervicalCancer || caretaker) {
+            if (getCitizenshipEligibility({ massResident }) {
                 eligibility.massHealth = true;
             }
         }
@@ -192,15 +191,15 @@ function getCitizenshipEligibility({
     }
 
     else if (usCitizen && massResident) {
-        connectorCare: true,
-        qualifiedHealthPlan: true,
-        massHealth: true,
-        massHealthCarePlus: true,
+        eligibility.connectorCare = true,
+        eligibility.qualifiedHealthPlan = true,
+        eligibility.massHealth = true,
+        eligibility.massHealthCarePlus = true,
     }
 
     else if (usCitizen || usAlien) {
-        connectorCare: true,
-        qualifiedHealthPlan: true,
+        eligibility.connectorCare = true,
+        eligibility.qualifiedHealthPlan = true,
     }
 
     return eligibility;
@@ -215,12 +214,4 @@ function getQualifyingCondition({
     cervicalCancer = false,
     caretaker = false
 })
-    let qualifyingCondition = false;
-
-    if (pregnant || hiv || disabled || breastCancer || cervicalCancer || caretaker) {
-            qualifyingCondition: true;
-        }
-
-    return qualifyingCondition
-
-}
+    return (pregnant || hiv || disabled || breastCancer || cervicalCancer || caretaker);
