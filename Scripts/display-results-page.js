@@ -6,30 +6,18 @@ for(var i=0; i<inputTypeNumber.length; i++){
 
 //HTML IDs AND THEIR VARIABLE NAMES: Resources
 var resourceEligibilityMessage = document.getElementById("resourceEligibilityMessage");
-<<<<<<< HEAD
-=======
-var resourceEligibilityEval = document.getElementById("resourceEligibilityEval");
->>>>>>> 545b8da463f4d830dfa35d105a5418a3d1351aff
 var seniorOrDisabledMessage = document.getElementById("seniorOrDisabledMessage"); 
 var resourceLimitMessage = document.getElementById("resourceLimitMessage"); 
 var resourceEligibilityMessage_disqualifyingResources = document.getElementById("resourceEligibilityMessage_disqualifyingResources"); 
 
 //HTML IDs AND THEIR VARIABLE NAMES: Gross Income
 var grossIncomeEligibilityMessage = document.getElementById("grossIncomeEligibilityMessage");
-<<<<<<< HEAD
-=======
-var grossIncomeEligibilityEval = document.getElementById("grossIncomeEligibilityEval");
->>>>>>> 545b8da463f4d830dfa35d105a5418a3d1351aff
 var householdNumberMessage = document.getElementById("householdNumberMessage"); 
 var grossIncomeLimitMessage = document.getElementById("grossIncomeLimitMessage");  
 var grossIncome = document.getElementById("grossIncome"); 
 
 //HTML IDs AND THEIR VARIABLE NAMES: Net Income 
 var netIncomeEligibilityMessage = document.getElementById("netIncomeEligibilityMessage");
-<<<<<<< HEAD
-=======
-var netIncomeEligibilityEval = document.getElementById("netIncomeEligibilityEval");
->>>>>>> 545b8da463f4d830dfa35d105a5418a3d1351aff
 var netIncomeHouseholdNumberMessage = document.getElementById("netIncomeHouseholdNumberMessage");
 var netIncomeLimitMessage = document.getElementById("netIncomeLimitMessage");
 var netIncome = document.getElementById("netIncome");
@@ -55,10 +43,6 @@ function displayEligibilityDetails(){
 
 
 function displayIneligibilityExplainer(){
-<<<<<<< HEAD
-=======
-
->>>>>>> 545b8da463f4d830dfa35d105a5418a3d1351aff
     document.getElementById("ineligibilityExplainerContainer").style.display = "initial";
     function resourceIneligibilityExplainer() {
         console.log("A");
@@ -76,31 +60,22 @@ function displayIneligibilityExplainer(){
             resourceEligibilityMessage_disqualifyingResources.style.display = "none";
             seniorOrDisabledMessage.innerHTML = (client.senior==1 || client.disabled==1) ? "":" do not";
             resourceLimitMessage.innerHTML =  (client.senior || client.disabled) ? "3,250":"2,250";
-<<<<<<< HEAD
-        } 
-=======
-        }         
->>>>>>> 545b8da463f4d830dfa35d105a5418a3d1351aff
-    }
+        }
     function grossIncomeIneligibilityExplainer(){
         if(grossIncomeEligible == true){
             return;
         } else {
             grossIncomeEligibilityMessage.style.display = "initial"; 
-<<<<<<< HEAD
             grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 
             householdNumberMessage.innerHTML = client.householdSize;
             grossIncome.innerHTML = client.grossIncome;
         }
     }   
-=======
-            grossIncomeEligibilityEval.innerHTML = (grossIncomeEligible == true) ? "":" not";
             grossIncomeLimitMessage.innerHTML = grossIncomeLimitValue; 
             householdNumberMessage.innerHTML = client.householdSize;
             grossIncome.innerHTML = client.grossIncome;
     } 
         
->>>>>>> 545b8da463f4d830dfa35d105a5418a3d1351aff
     function netIncomeIneligibilityExplainer(){
         if(netIncomeEligible == true){
             return; 
@@ -114,11 +89,7 @@ function displayIneligibilityExplainer(){
     resourceIneligibilityExplainer(); 
     grossIncomeIneligibilityExplainer(); 
     netIncomeIneligibilityExplainer(); 
-<<<<<<< HEAD
     };
-=======
-};
->>>>>>> 545b8da463f4d830dfa35d105a5418a3d1351aff
 
 
 
