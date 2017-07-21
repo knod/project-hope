@@ -26,4 +26,102 @@ QUnit.test( "same income, half size family should return higher value", function
 });
 
 QUnit.module("Function getEligibility:");
-// TODO: add
+QUnit.test("Original example", function(assert) {
+  input = {householdSize: 3,
+           annualHouseholdIncome: 30000,
+           age: 45,
+           usCitizen: false,
+           usAlien: true,
+           massResident: true,
+           pregnant: false,
+           hiv: false,
+           disabled: false,
+           breastCancer: false,
+           cervicalCancer: false,
+           caretaker: false};
+  expected = {connectorCare: true,
+              qualifiedHealthPlan: false,
+              massHealth: false,
+              massHealthCarePlus: false};
+  assert.deepEqual(getEligibility(input), expected, "Passed!");
+});
+
+QUnit.test("Typical 21-64 MassHealth", function(assert) {
+  input = {householdSize: 4,
+           annualHouseholdIncome: 1234,
+           age: 31,
+           usCitizen: true,
+           usAlien: false,
+           massResident: true,
+           pregnant: false,
+           hiv: false,
+           disabled: true,
+           breastCancer: false,
+           cervicalCancer: false,
+           caretaker: false};
+  expected = {connectorCare: false,
+              qualifiedHealthPlan: false,
+              massHealth: true,
+              massHealthCarePlus: false};
+  assert.deepEqual(getEligibility(input), expected, "Passed!");
+});
+
+QUnit.test("Typical 21-64 Mass Health CarePlus", function(assert) {
+  input = {householdSize: 4,
+           annualHouseholdIncome: 1234,
+           age: 31,
+           usCitizen: true,
+           usAlien: false,
+           massResident: true,
+           pregnant: false,
+           hiv: false,
+           disabled: false,
+           breastCancer: false,
+           cervicalCancer: false,
+           caretaker: false};
+  expected = {connectorCare: false,
+              qualifiedHealthPlan: false,
+              massHealth: false,
+              massHealthCarePlus: true};
+  assert.deepEqual(getEligibility(input), expected, "Passed!");
+});
+
+QUnit.test("Typical ConnectorCare", function(assert) {
+  input = {householdSize: 4,
+           annualHouseholdIncome: 40000,
+           age: 31,
+           usCitizen: true,
+           usAlien: false,
+           massResident: true,
+           pregnant: false,
+           hiv: false,
+           disabled: false,
+           breastCancer: false,
+           cervicalCancer: false,
+           caretaker: false};
+  expected = {connectorCare: true,
+              qualifiedHealthPlan: false,
+              massHealth: false,
+              massHealthCarePlus: false};
+  assert.deepEqual(getEligibility(input), expected, "Passed!");
+});
+
+QUnit.test("Typical Qualified Health Plan", function(assert) {
+  input = {householdSize: 8,
+           annualHouseholdIncome: 140000,
+           age: 31,
+           usCitizen: true,
+           usAlien: false,
+           massResident: true,
+           pregnant: false,
+           hiv: false,
+           disabled: false,
+           breastCancer: false,
+           cervicalCancer: false,
+           caretaker: false};
+  expected = {connectorCare: false,
+              qualifiedHealthPlan: true,
+              massHealth: false,
+              massHealthCarePlus: false};
+  assert.deepEqual(getEligibility(input), expected, "Passed!");
+});
