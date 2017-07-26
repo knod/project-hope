@@ -1,0 +1,31 @@
+{
+  "name": "project-hope",
+  "version": "1.0.0",
+  "description": "The very first time you start working on this repo, you'll have to clone to your local machine. To do so, open your terminal and type the following command in the folder where you want your local repo to live: `git clone https://github.com/codeforboston/project-hope.git`. This will create a project named `project-hope` in the directory into which you type the command",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+    "webpack": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeforboston/project-hope.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codeforboston/project-hope/issues"
+  },
+  "homepage": "https://github.com/codeforboston/project-hope#readme",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "eslint": "^4.3.0",
+    "eslint-loader": "^1.9.0",
+    "webpack": "^3.4.0"
+  }
+}
