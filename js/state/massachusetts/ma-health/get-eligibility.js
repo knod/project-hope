@@ -48,7 +48,7 @@ const INCOME_THRESHOLDS = [
  */
 
 
-function CitizenshipInfoBlob( usCitizen = true , usAlien = false , massResident = true ) 
+class CitizenshipInfoBlob( usCitizen = true , usAlien = false , massResident = true ) 
 {
     // saved data
     this.usCitizen      = usCitizen;
@@ -100,7 +100,7 @@ function CitizenshipInfoBlob( usCitizen = true , usAlien = false , massResident 
  * @return QualifyingConditionsBlob
  */
 
-function QualifyingConditionsBlob(pregnant = false, disabled = false,
+class QualifyingConditionsBlob(pregnant = false, disabled = false,
                                   breastCancer = false, cervicalCancer = false,
                                   caretaker = false, HIVpositive = false )
 {
@@ -148,7 +148,7 @@ function QualifyingConditionsBlob(pregnant = false, disabled = false,
   *
   * @return {EligibilityMatrix}
   */
-function EligibilityMatrix(incomeLevel, hasQualifyingCondition, hasResidency, age, hasMinCreditableCoverage) 
+class EligibilityMatrix(incomeLevel, hasQualifyingCondition, hasResidency, age, hasMinCreditableCoverage) 
 {
 
     var eligibility = { massHealth: false, massHealthCarePlus: false, connectorCare: false, qualifiedPlanWithHelp : false, qualifiedPlan: false };
@@ -222,7 +222,7 @@ function EligibilityMatrix(incomeLevel, hasQualifyingCondition, hasResidency, ag
   * @return UserProfile
   */
 
-function UserProfile(householdSize,
+class UserProfile(householdSize,
     annualHouseholdIncome,
     age,
     minCreditableCoverage = false,
