@@ -13,12 +13,4 @@ In subsequent times, the workflow goes like this:
 
 If you wanna learn more see here: https://www.atlassian.com/git
 
-# Writing code
-If you're writing code based on/connected to resources, please include comments in your code with links to the related documents. For example, a script for the Section 8 Housing Voucher program would include a link to the Trello card, to the google document where other resources, pseudo-code, etc. are located, and a link to relevant codepens:
-
-``` js
-// Section 8 Housing Voucher
-// https://trello.com/c/EIt2BCMQ/53-housing-choice-voucher-section-8-pseudocode-doc
-// https://docs.google.com/spreadsheets/d/14FFcrEwZVTJDc00X7V4XkicE3NYVVF0lijV1jMLe--Y/edit#gid=0
-// https://codepen.io/knod/pen/LLzbbQ
-```
+For more about code development best practices, see the [wiki](https://github.com/codeforboston/project-hope/wiki).
