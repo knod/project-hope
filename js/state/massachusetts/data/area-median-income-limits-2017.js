@@ -8,14 +8,14 @@
 (function (root, medianIncomeLimitsFactory) {  // root is usually `window`
     if (typeof define === 'function' && define.amd) {
     	// AMD. Register as an anonymous module.
-        define( [], function () { return ( root.INCOME_LIMITS_2017 = medianIncomeLimitsFactory() ); });
+        define( [], function () { return ( root.AREA_MEDIAN_INCOME_LIMITS_2017 = medianIncomeLimitsFactory() ); });
     } else if (typeof module === 'object' && module.exports) {
 	    // Node. Does not work with strict CommonJS, but only CommonJS-like
 	    // environments that support module.exports, like Node.
         module.exports = medianIncomeLimitsFactory();
     } else {
     	// Browser global
-    	root.INCOME_LIMITS_2017 = medianIncomeLimitsFactory();
+    	root.AREA_MEDIAN_INCOME_LIMITS_2017 = medianIncomeLimitsFactory();
     }
 // An self-invoking function that is immediately invoked when loaded
 }(this, function () {
@@ -27,7 +27,7 @@
 	 * @constant
 	 * @readonly
 	 * 
-	 * @exports {Object} INCOME_LIMITS_2017
+	 * @exports {Object} AREA_MEDIAN_INCOME_LIMITS_2017
 	 * @property {Object} countyName - MA county names ("free market rent" areas of residence) as keys
 	 * @property {number} countyName.median - 100% of the median income for a 4-family household
 	 * @property {Array<number>} countyName.L50 - Very Low Income Limits (below 50% of the median income limit plus complex adjustments) for 1 to 8-member households
@@ -38,7 +38,7 @@
 	 * @see US-wide excel sheet downloaded from https://www.huduser.gov/portal/datasets/il.html#2017_data
 	 *
 	 */
-	const INCOME_LIMITS_2017 = {
+	const AREA_MEDIAN_INCOME_LIMITS_2017 = {
 	  "Barnstable Town city": { median: 90200, L50: [ 31600, 36100, 40600, 45100, 48750, 52350, 55950, 59550 ], ELI: [ 18950 , 21650, 24350, 27050, 29250, 32960, 37140, 41320 ], L80: [ 47600, 54400, 61200, 68000, 73450, 78900, 84350, 89800 ] },
 	  "Bourne town": { median: 90200, L50: [ 31600, 36100, 40600, 45100, 48750, 52350, 55950, 59550 ], ELI: [ 18950 , 21650, 24350, 27050, 29250, 32960, 37140, 41320 ], L80: [ 47600, 54400, 61200, 68000, 73450, 78900, 84350, 89800 ] },
 	  "Brewster town": { median: 90200, L50: [ 31600, 36100, 40600, 45100, 48750, 52350, 55950, 59550 ], ELI: [ 18950 , 21650, 24350, 27050, 29250, 32960, 37140, 41320 ], L80: [ 47600, 54400, 61200, 68000, 73450, 78900, 84350, 89800 ] },
@@ -393,5 +393,5 @@
 	};
 
 	// Now available externally
-    return INCOME_LIMITS_2017;
+    return AREA_MEDIAN_INCOME_LIMITS_2017;
 }));  // End UMD pattern
